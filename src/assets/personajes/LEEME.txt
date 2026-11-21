@@ -1,0 +1,3 @@
+Imágenes de personajes (opcional): <id>.webp|png|jpg, por ejemplo sol.webp, ky.webp.
+Los id están en src/data/gga.js (personajes.lista).
+Usar imágenes propias o fan art con permiso del artista: las guías de fans de Arc System Works no permiten usar arte oficial.

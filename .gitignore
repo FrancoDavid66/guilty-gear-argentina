@@ -1,0 +1,16 @@
+# dependencias
+node_modules/
+
+# builds (se generan con npm run build / build:single)
+dist/
+dist-single/
+
+# sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log
+.env
+.env.*

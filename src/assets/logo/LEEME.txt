@@ -1,0 +1,3 @@
+Poné acá el logo del team (PNG con fondo transparente, ideal 1000x1000 o más).
+Cualquier nombre sirve. La web lo toma sola en todos lados (portada, menú, Discord, redes y footer).
+Después corré: npm run build  (y  npm run build:single  para la vista previa en un solo archivo).
