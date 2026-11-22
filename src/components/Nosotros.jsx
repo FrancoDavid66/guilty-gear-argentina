@@ -3,6 +3,8 @@ import { useDiscord } from '../lib/discord'
 import { Resaltar } from '../lib/texto'
 import { irA } from '../lib/scroll'
 import Aparece from './Aparece'
+import Team from './Team'
+import Galeria from './Galeria'
 import { Marca, Flecha } from './Iconos'
 
 const fmt = (n) => n.toLocaleString('es-AR')
@@ -72,6 +74,8 @@ export default function Nosotros() {
         </div>
       </section>
 
+      <Team />
+
       {/* Historia */}
       <section id="historia" className="bg-noche px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="titulo-historia">
         <div className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-12">
@@ -93,6 +97,8 @@ export default function Nosotros() {
           </ol>
         </div>
       </section>
+
+      <Galeria />
 
       {/* Organizadores */}
       <section className="border-t border-white/10 bg-carbon px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="equipo">

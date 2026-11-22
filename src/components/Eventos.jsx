@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { eventos, calendario } from '../data/gga'
 import { proximoGeneral, armarCalendario, fechaArg, horaLocal, partes, diasTexto, diaCorto } from '../lib/agenda'
+import Flyer, { flyerDe } from './Flyer'
 import { golpe, sinMovimiento } from '../lib/movimiento'
 import Titulo from './Titulo'
 import Aparece from './Aparece'
@@ -214,8 +215,35 @@ function Reglamento() {
   )
 }
 
+// Flyer del mes (la placa que GGA publica en X), en una franja propia
+function FlyerDelMes() {
+  const src = flyerDe('mes', calendario.flyer)
+  if (!src) return null
+  return (
+    <div className="mt-10 grid items-center gap-6 rounded-[22px] border border-white/10 bg-carbon/80 p-5 sm:p-8 md:grid-cols-[minmax(0,380px)_1fr] md:gap-10">
+      <Flyer src={src} alt={`Calendario de actividades de Guilty Gear Argentina, ${calendario.mes}`} />
+      <div>
+        <p className="bajada text-cian">Flyer del mes</p>
+        <h3 className="mt-2 font-titulo text-[clamp(40px,5vw,64px)] font-black uppercase leading-[0.9]">{calendario.mes}</h3>
+        <p className="mt-4 max-w-[46ch] text-[17px] text-white/70">
+          La placa con todas las actividades del mes, la misma que publicamos en X. Guardala o compartila con quien quiera arrancar.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-2">
+          <a href={src} target="_blank" rel="noreferrer" className="boton boton-cian">
+            Abrir el flyer
+          </a>
+          <a href={calendario.post} target="_blank" rel="noreferrer" className="boton boton-borde">
+            <Marca red="x" className="h-4 w-4" /> Ver el post
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function Tarjeta({ ev, i, inscripcion }) {
   const p1 = ev.lado === 'P1'
+  const flyer = flyerDe(ev.id, ev.flyer)
   return (
     <motion.article
       initial={sinMovimiento ? false : { opacity: 0, x: p1 ? -60 : 60 }}
@@ -228,6 +256,8 @@ function Tarjeta({ ev, i, inscripcion }) {
       <span className="contorno pointer-events-none absolute -right-3 -top-6 font-titulo text-[150px] font-black leading-none [--trazo:rgba(7,9,13,.14)]" aria-hidden="true">
         {ev.lado}
       </span>
+
+      {flyer && <Flyer src={flyer} alt={`Flyer: ${ev.nombre}`} className="relative mb-6 !border-noche/15 shadow-[0_18px_40px_-20px_rgba(7,9,13,.6)]" />}
 
       <div className="relative flex items-center gap-2">
         <span className={`chip ${p1 ? 'bg-noche text-cian' : 'bg-azul text-white'}`}>{ev.lado}</span>
@@ -288,6 +318,10 @@ export default function Eventos() {
             <Calendario ahora={ahora} />
           </Aparece>
         </div>
+
+        <Aparece>
+          <FlyerDelMes />
+        </Aparece>
 
         {/* P1 VS P2 */}
         <div className="relative mt-10 grid gap-4 lg:grid-cols-2 lg:gap-6">

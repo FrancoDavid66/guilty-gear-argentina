@@ -10,6 +10,10 @@ import { sinMovimiento } from './movimiento'
 const suave = (x) => x * x * (3 - 2 * x)
 const tramo = (v, a, b) => THREE.MathUtils.clamp((v - a) / (b - a), 0, 1)
 const CIAN = 0x02befe
+// Colores del logo 3D (cambiar acá): azul más oscuro y acabado satinado, no espejado
+const AZUL_LOGO = 0x0b5aa8
+const BLANCO_LOGO = 0xdde6ee
+const NEGRO_LOGO = 0x0a0f15
 
 export function crearEscena({ caja, portada, alAvanzar }) {
   const esCelu = matchMedia('(max-width: 700px)').matches
@@ -22,7 +26,7 @@ export function crearEscena({ caja, portada, alAvanzar }) {
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2))
   renderer.toneMapping = THREE.ACESFilmicToneMapping
-  renderer.toneMappingExposure = 1.05
+  renderer.toneMappingExposure = 0.92
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%'
   caja.appendChild(renderer.domElement)
@@ -34,18 +38,18 @@ export function crearEscena({ caja, portada, alAvanzar }) {
 
   const pmrem = new THREE.PMREMGenerator(renderer)
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture
-  const luzClave = new THREE.DirectionalLight(0xffffff, 2.2)
+  const luzClave = new THREE.DirectionalLight(0xffffff, 1.8)
   luzClave.position.set(4, 6, 8)
-  const luzCian = new THREE.PointLight(CIAN, 60, 30)
+  const luzCian = new THREE.PointLight(CIAN, 30, 30)
   luzCian.position.set(-5, -1, 4)
   const luzAtras = new THREE.PointLight(0x2f6fff, 40, 30)
   luzAtras.position.set(3, 3, -4)
   scene.add(luzClave, luzCian, luzAtras)
 
   const mat = {
-    contorno: new THREE.MeshPhysicalMaterial({ color: 0x0b1016, metalness: 0.55, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.12, transparent: true }),
-    celeste: new THREE.MeshPhysicalMaterial({ color: 0x08bef9, metalness: 0.05, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.08, emissive: 0x024a6b, emissiveIntensity: 0.45, transparent: true }),
-    blanco: new THREE.MeshPhysicalMaterial({ color: 0xf4f8fb, metalness: 0, roughness: 0.25, clearcoat: 0.9, transparent: true }),
+    contorno: new THREE.MeshPhysicalMaterial({ color: NEGRO_LOGO, metalness: 0.3, roughness: 0.45, clearcoat: 0.35, clearcoatRoughness: 0.35, envMapIntensity: 0.55, transparent: true }),
+    celeste: new THREE.MeshPhysicalMaterial({ color: AZUL_LOGO, metalness: 0.1, roughness: 0.42, clearcoat: 0.35, clearcoatRoughness: 0.3, emissive: 0x03182e, emissiveIntensity: 0.25, envMapIntensity: 0.6, transparent: true }),
+    blanco: new THREE.MeshPhysicalMaterial({ color: BLANCO_LOGO, metalness: 0, roughness: 0.5, clearcoat: 0.25, clearcoatRoughness: 0.4, envMapIntensity: 0.5, transparent: true }),
   }
   const matLinea = new THREE.LineBasicMaterial({ color: CIAN, transparent: true })
 

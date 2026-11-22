@@ -18,7 +18,8 @@ const iniciales = (n) =>
     .slice(0, 2)
     .map((p) => p[0])
     .join('')
-const dustloop = (n) => `https://www.dustloop.com/w/index.php?search=${encodeURIComponent('GGST/' + n)}`
+// Perfil oficial del personaje en la web de Guilty Gear -Strive-
+const perfilDe = (p) => `${personajes.perfiles}${p.perfil}/`
 
 function Tarjeta({ p, i }) {
   const foto = fotoDe(p.id)
@@ -29,7 +30,7 @@ function Tarjeta({ p, i }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.94 }}
       transition={{ duration: 0.35, ease: golpe }}
-      href={dustloop(p.nombre)}
+      href={perfilDe(p)}
       target="_blank"
       rel="noreferrer"
       data-golpe
@@ -48,7 +49,7 @@ function Tarjeta({ p, i }) {
         <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-cian">{p.tanda}</span>
         <span className="mt-1 block font-titulo text-[24px] font-black uppercase leading-[0.95] sm:text-[26px]">{p.nombre}</span>
         {p.nota && <span className="mt-1 block text-[12px] text-white/50">{p.nota}</span>}
-        <span className="mt-2 block text-[12px] text-white/0 transition group-hover:text-white/70">Ver ficha en Dustloop →</span>
+        <span className="mt-2 block text-[12px] text-white/0 transition group-hover:text-white/70">Ver perfil oficial →</span>
       </span>
     </motion.a>
   )
@@ -68,7 +69,7 @@ export default function Personajes() {
               El plantel <span className="text-cian">completo</span>
             </h2>
             <p className="mt-4 max-w-[52ch] text-white/65">
-              {personajes.lista.length} personajes: 15 de base y {personajes.lista.length - 15} de las temporadas de DLC. Tocá uno para ver su ficha, combos y frame data en Dustloop.
+              {personajes.lista.length} personajes: 15 de base y {personajes.lista.length - 15} de las temporadas de DLC. Tocá uno para ver su perfil en la web oficial del juego.
             </p>
           </div>
           <p className="chip self-start bg-white/[.06] text-white/70 lg:self-auto">Próximamente · {personajes.proximo}</p>

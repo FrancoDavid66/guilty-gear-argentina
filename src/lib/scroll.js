@@ -27,7 +27,6 @@ export const PAGINAS = ['inicio', 'nosotros', 'juegos', 'eventos', 'aprende', 'c
 
 // En qué página está cada sección (para los botones que llevan a otra página)
 const SECCIONES = {
-  panel: 'inicio',
   discord: 'comunidad',
   reglas: 'comunidad',
   redes: 'comunidad',
@@ -38,6 +37,8 @@ const SECCIONES = {
   calendario: 'eventos',
   replay: 'eventos',
   historia: 'nosotros',
+  team: 'nosotros',
+  galeria: 'nosotros',
 }
 
 // Cosas que una página le deja a la siguiente (ej.: qué serie de clases abrir)
@@ -56,6 +57,15 @@ export function usePagina() {
     return () => removeEventListener('hashchange', cambio)
   }, [])
   return pagina
+}
+
+// Transición entre páginas (la registra efectos/Transicion.jsx). Sin ella, el cambio es directo.
+let transicion = null
+export function registrarTransicion(fn) {
+  transicion = fn
+  return () => {
+    if (transicion === fn) transicion = null
+  }
 }
 
 let anclaPendiente = null
@@ -85,7 +95,10 @@ export function irPagina(id, ancla = null) {
     return el ? bajarA(el) : arriba()
   }
   anclaPendiente = ancla
-  location.hash = id === 'inicio' ? '#/' : `#/${id}`
+  const cambiar = () => {
+    location.hash = id === 'inicio' ? '#/' : `#/${id}`
+  }
+  transicion ? transicion(id, cambiar) : cambiar()
 }
 
 // Lleva a una página ("juegos") o a una sección ("clases"), esté en la página que esté

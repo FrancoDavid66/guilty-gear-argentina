@@ -3,8 +3,7 @@ import { iniciarScroll, usePagina, arriba, tomarAncla, irA } from './lib/scroll'
 import { paginas, sitio } from './data/gga'
 import Header from './components/Header'
 import Hero3D from './components/Hero3D'
-import Panel from './components/Panel'
-import Accesos from './components/Accesos'
+import Inicio from './components/Inicio'
 import Cabecera from './components/Cabecera'
 import Nosotros from './components/Nosotros'
 import Discord from './components/Discord'
@@ -20,14 +19,14 @@ import DiscordFlotante from './components/DiscordFlotante'
 import GolpesCanvas from './components/efectos/GolpesCanvas'
 import WallBreak from './components/efectos/WallBreak'
 import InstantKill from './components/efectos/InstantKill'
+import Transicion from './components/efectos/Transicion'
 
 // Cada página: qué secciones lleva
 const CONTENIDO = {
   inicio: () => (
     <>
       <Hero3D />
-      <Panel />
-      <Accesos />
+      <Inicio />
     </>
   ),
   nosotros: () => <Nosotros />,
@@ -81,6 +80,7 @@ export default function App() {
       <DiscordFlotante />
       <GolpesCanvas />
       <InstantKill />
+      <Transicion />
     </>
   )
 }

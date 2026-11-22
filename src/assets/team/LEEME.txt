@@ -1,0 +1,2 @@
+Tarjetas de los jugadores del team: <id>.jpg|png|webp (los id están en src/data/gga.js, team.jugadores).
+Ej.: pacha.jpg, orderkyo.jpg, jest.jpg, tsubomikyo.jpg, agma.jpg

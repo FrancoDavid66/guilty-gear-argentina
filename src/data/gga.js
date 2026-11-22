@@ -284,6 +284,8 @@ export const eventos = {
         'Vení a jugar con nosotros en stream. Aprovechá esta oportunidad para perderle el miedo al stream, pedir feedback y sacarte todas las dudas sobre el juego o tu personaje.',
       canal: 'orderkyo',
       link: 'https://www.twitch.tv/orderkyo',
+      // Flyer fijo del lobby (de X). Local: src/assets/flyers/lobby.jpg
+      flyer: 'https://pbs.twimg.com/media/HXYtcbrWcAAa_dk?format=jpg&name=large',
       dias: [2, 4],
       hora: '20:00',
     },
@@ -295,6 +297,8 @@ export const eventos = {
       texto: 'Wake up, Throw!: nuestro torneo de rookies, todas las semanas. Se organiza en el Discord y el top 8 va en vivo.',
       canal: 'nabbori',
       link: 'https://www.twitch.tv/nabbori',
+      // Flyer del torneo: poné el link acá o guardalo como src/assets/flyers/torneo.jpg
+      flyer: null,
       dias: [6],
       hora: '18:00',
     },
@@ -321,6 +325,9 @@ export const eventos = {
 export const calendario = {
   mes: 'Noviembre 2026',
   post: 'https://x.com/GearArgentina/status/2119096530384941229',
+  // Flyer del mes (la placa que publican en X). Para no depender de X:
+  // guardalo como src/assets/flyers/mes.jpg y se usa ese.
+  flyer: 'https://pbs.twimg.com/media/HWiKR6xXYAANz-k?format=jpg&name=large',
   eventos: [
     { fecha: '2026-11-10', hora: '20:00', tipo: 'lobby', juego: '+R' },
     { fecha: '2026-11-12', hora: '20:00', tipo: 'lobby', juego: '+R' },
@@ -402,19 +409,6 @@ export const menu = [
 export const aviso =
   'Guilty Gear es una marca de Arc System Works. Sitio de la comunidad, sin afiliación oficial.'
 
-// ---------------------------------------------------------------------
-//  PANEL (debajo de la portada, estilo Fnatic): "Lo último" del canal
-//  de YouTube de GGA. Poné los videos más nuevos arriba.
-// ---------------------------------------------------------------------
-export const panel = {
-  ultimos: [
-    { id: 'PjmJW3yotgQ', titulo: 'La Escuelita de ACPR · Stream 3', tag: '+R' },
-    { id: 'pL8_i7jTdZw', titulo: 'La Escuelita de ACPR · Stream 2', tag: '+R' },
-    { id: 'Bdnhr51x5VU', titulo: 'Aprendé a jugar con Johnny', tag: 'Strive' },
-    { id: '820cD9avCXA', titulo: '¿Qué es la notación numérica?', tag: 'Básico' },
-    { id: 'yAkNVLQoxi4', titulo: 'Principiante en Xrd · Cap. 1', tag: 'Xrd' },
-  ],
-}
 
 // ---------------------------------------------------------------------
 //  PÁGINAS: título y bajada de la cabecera de cada página
@@ -427,14 +421,6 @@ export const paginas = {
   comunidad: { bajada: 'Discord y redes', titulo: 'Comunidad', texto: 'Dónde estamos, cómo sumarte y las reglas para que todos la pasemos bien.' },
 }
 
-// Accesos de la página de inicio (tarjetas grandes)
-export const accesos = [
-  { id: 'nosotros', titulo: 'Nosotros', texto: 'Quiénes somos, qué hacemos y quiénes organizan.' },
-  { id: 'juegos', titulo: 'Juegos', texto: 'Strive, Xrd y +R, con el plantel completo de Strive.' },
-  { id: 'eventos', titulo: 'Eventos', texto: 'Calendario del mes, reglamento y replays.' },
-  { id: 'aprende', titulo: 'Aprendé', texto: 'La Escuelita y el Diccionario Guilty.' },
-  { id: 'comunidad', titulo: 'Comunidad', texto: 'Discord, reglas y redes.' },
-]
 
 // ---------------------------------------------------------------------
 //  NOSOTROS
@@ -466,42 +452,44 @@ export const nosotros = {
 // ---------------------------------------------------------------------
 export const personajes = {
   juego: 'Guilty Gear -Strive-',
+  // perfil = código de la página oficial: guiltygear.com/ggst/en/character/<perfil>/ (verificados 21/11/2026)
+  perfiles: 'https://www.guiltygear.com/ggst/en/character/',
   proximo: 'DLC #20: personaje invitado (invierno 2026) · #21 en primavera 2027',
   lista: [
-    { id: 'sol', nombre: 'Sol Badguy', tanda: 'Base' },
-    { id: 'ky', nombre: 'Ky Kiske', tanda: 'Base' },
-    { id: 'may', nombre: 'May', tanda: 'Base' },
-    { id: 'axl', nombre: 'Axl Low', tanda: 'Base' },
-    { id: 'chipp', nombre: 'Chipp Zanuff', tanda: 'Base' },
-    { id: 'potemkin', nombre: 'Potemkin', tanda: 'Base' },
-    { id: 'faust', nombre: 'Faust', tanda: 'Base' },
-    { id: 'millia', nombre: 'Millia Rage', tanda: 'Base' },
-    { id: 'zato', nombre: 'Zato-1', tanda: 'Base' },
-    { id: 'ramlethal', nombre: 'Ramlethal Valentine', tanda: 'Base' },
-    { id: 'leo', nombre: 'Leo Whitefang', tanda: 'Base' },
-    { id: 'nagoriyuki', nombre: 'Nagoriyuki', tanda: 'Base' },
-    { id: 'giovanna', nombre: 'Giovanna', tanda: 'Base' },
-    { id: 'anji', nombre: 'Anji Mito', tanda: 'Base' },
-    { id: 'ino', nombre: 'I-No', tanda: 'Base' },
-    { id: 'goldlewis', nombre: 'Goldlewis Dickinson', tanda: 'Temporada 1' },
-    { id: 'jacko', nombre: "Jack-O'", tanda: 'Temporada 1' },
-    { id: 'happychaos', nombre: 'Happy Chaos', tanda: 'Temporada 1' },
-    { id: 'baiken', nombre: 'Baiken', tanda: 'Temporada 1' },
-    { id: 'testament', nombre: 'Testament', tanda: 'Temporada 1' },
-    { id: 'bridget', nombre: 'Bridget', tanda: 'Temporada 2' },
-    { id: 'sin', nombre: 'Sin Kiske', tanda: 'Temporada 2' },
-    { id: 'bedman', nombre: 'Bedman?', tanda: 'Temporada 2' },
-    { id: 'asuka', nombre: 'Asuka R♯', tanda: 'Temporada 2' },
-    { id: 'johnny', nombre: 'Johnny', tanda: 'Temporada 3' },
-    { id: 'elphelt', nombre: 'Elphelt Valentine', tanda: 'Temporada 3' },
-    { id: 'aba', nombre: 'A.B.A', tanda: 'Temporada 3' },
-    { id: 'slayer', nombre: 'Slayer', tanda: 'Temporada 3' },
-    { id: 'dizzy', nombre: 'Queen Dizzy', tanda: 'Temporada 4' },
-    { id: 'venom', nombre: 'Venom', tanda: 'Temporada 4' },
-    { id: 'unika', nombre: 'Unika', tanda: 'Temporada 4' },
-    { id: 'lucy', nombre: 'Lucy', tanda: 'Temporada 4', nota: 'Invitada de Cyberpunk: Edgerunners' },
-    { id: 'jam', nombre: 'Jam Kuradoberi', tanda: 'Temporada 5' },
-    { id: 'roboky', nombre: 'Robo-Ky', tanda: 'Temporada 5' },
+    { id: 'sol', perfil: 'sol', nombre: 'Sol Badguy', tanda: 'Base' },
+    { id: 'ky', perfil: 'kyk', nombre: 'Ky Kiske', tanda: 'Base' },
+    { id: 'may', perfil: 'may', nombre: 'May', tanda: 'Base' },
+    { id: 'axl', perfil: 'axl', nombre: 'Axl Low', tanda: 'Base' },
+    { id: 'chipp', perfil: 'chp', nombre: 'Chipp Zanuff', tanda: 'Base' },
+    { id: 'potemkin', perfil: 'pot', nombre: 'Potemkin', tanda: 'Base' },
+    { id: 'faust', perfil: 'fau', nombre: 'Faust', tanda: 'Base' },
+    { id: 'millia', perfil: 'mll', nombre: 'Millia Rage', tanda: 'Base' },
+    { id: 'zato', perfil: 'zat', nombre: 'Zato-1', tanda: 'Base' },
+    { id: 'ramlethal', perfil: 'ram', nombre: 'Ramlethal Valentine', tanda: 'Base' },
+    { id: 'leo', perfil: 'leo', nombre: 'Leo Whitefang', tanda: 'Base' },
+    { id: 'nagoriyuki', perfil: 'nag', nombre: 'Nagoriyuki', tanda: 'Base' },
+    { id: 'giovanna', perfil: 'gio', nombre: 'Giovanna', tanda: 'Base' },
+    { id: 'anji', perfil: 'anji', nombre: 'Anji Mito', tanda: 'Base' },
+    { id: 'ino', perfil: 'ino', nombre: 'I-No', tanda: 'Base' },
+    { id: 'goldlewis', perfil: 'gld', nombre: 'Goldlewis Dickinson', tanda: 'Temporada 1' },
+    { id: 'jacko', perfil: 'jko', nombre: "Jack-O'", tanda: 'Temporada 1' },
+    { id: 'happychaos', perfil: 'cos', nombre: 'Happy Chaos', tanda: 'Temporada 1' },
+    { id: 'baiken', perfil: 'bkn', nombre: 'Baiken', tanda: 'Temporada 1' },
+    { id: 'testament', perfil: 'tst', nombre: 'Testament', tanda: 'Temporada 1' },
+    { id: 'bridget', perfil: 'bgt', nombre: 'Bridget', tanda: 'Temporada 2' },
+    { id: 'sin', perfil: 'sin', nombre: 'Sin Kiske', tanda: 'Temporada 2' },
+    { id: 'bedman', perfil: 'bed', nombre: 'Bedman?', tanda: 'Temporada 2' },
+    { id: 'asuka', perfil: 'ask', nombre: 'Asuka R♯', tanda: 'Temporada 2' },
+    { id: 'johnny', perfil: 'jhn', nombre: 'Johnny', tanda: 'Temporada 3' },
+    { id: 'elphelt', perfil: 'elp', nombre: 'Elphelt Valentine', tanda: 'Temporada 3' },
+    { id: 'aba', perfil: 'aba', nombre: 'A.B.A', tanda: 'Temporada 3' },
+    { id: 'slayer', perfil: 'sly', nombre: 'Slayer', tanda: 'Temporada 3' },
+    { id: 'dizzy', perfil: 'dzy', nombre: 'Queen Dizzy', tanda: 'Temporada 4' },
+    { id: 'venom', perfil: 'ven', nombre: 'Venom', tanda: 'Temporada 4' },
+    { id: 'unika', perfil: 'uni', nombre: 'Unika', tanda: 'Temporada 4' },
+    { id: 'lucy', perfil: 'luc', nombre: 'Lucy', tanda: 'Temporada 4', nota: 'Invitada de Cyberpunk: Edgerunners' },
+    { id: 'jam', perfil: 'jam', nombre: 'Jam Kuradoberi', tanda: 'Temporada 5' },
+    { id: 'roboky', perfil: 'rbk', nombre: 'Robo-Ky', tanda: 'Temporada 5' },
   ],
 }
 
@@ -519,4 +507,40 @@ export const reglasDiscord = {
     { titulo: 'Pautas de la comunidad de Discord', link: 'https://discord.com/guidelines', texto: 'Valen en todos los servidores, también en el nuestro.' },
     { titulo: 'Términos del servicio de Discord', link: 'https://discord.com/terms', texto: 'Para tener cuenta hay que cumplirlos, edad mínima incluida.' },
   ],
+}
+
+// ---------------------------------------------------------------------
+//  INICIO (debajo de la portada 3D, estilo Fnatic): 4 tarjetas.
+//  ultimoVideo = el video más nuevo del canal de GGA (cambiarlo cuando suban otro).
+//  El próximo evento sale solo del calendario; Discord y clases, de sus datos.
+// ---------------------------------------------------------------------
+export const inicio = {
+  ultimoVideo: { id: 'PjmJW3yotgQ', titulo: 'La Escuelita de ACPR · Stream 3', tag: '+R' },
+}
+
+// ---------------------------------------------------------------------
+//  EL TEAM (página Nosotros): jugadores del equipo semi-profesional.
+//  Tarjeta de cada uno (la de Instagram, opcional): src/assets/team/<id>.jpg|png|webp
+//  x = usuario de X sin @ (opcional)
+// ---------------------------------------------------------------------
+export const team = {
+  texto: 'Además de comunidad, somos un equipo semi-profesional que compite en la escena de Guilty Gear Strive.',
+  jugadores: [
+    { id: 'pacha', nick: 'Pacha' },
+    { id: 'orderkyo', nick: 'Order Kyo', x: 'orderkyo' },
+    { id: 'jest', nick: 'Jest', x: 'JestElPibe' },
+    { id: 'tsubomikyo', nick: 'Tsubomi Kyo' },
+    { id: 'agma', nick: 'Agma' },
+  ],
+}
+
+// ---------------------------------------------------------------------
+//  GALERÍA "LA COMUNIDAD" (página Nosotros)
+//  Poné las fotos en src/assets/comunidad/ (jpg, png o webp) y aparecen solas,
+//  ordenadas por nombre de archivo (ej.: 01-presencial.jpg, 02-torneo.jpg).
+//  Epígrafe opcional: 'nombre-del-archivo.jpg': 'Texto'
+//  Usar fotos con el OK de quienes aparecen.
+// ---------------------------------------------------------------------
+export const galeria = {
+  epigrafes: {},
 }
