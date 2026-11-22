@@ -29,7 +29,7 @@ function Jugador({ j, i }) {
           >
             {iniciales(j.nick)}
           </span>
-          <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-cian">Jugador</span>
+          <span className="relative font-mono text-[12px] uppercase tracking-[0.14em] text-cian">Jugador</span>
         </div>
       )}
       <div className="mt-3 flex items-center justify-between gap-2">
@@ -39,7 +39,7 @@ function Jugador({ j, i }) {
             href={`https://x.com/${j.x}`}
             target="_blank"
             rel="noreferrer"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-cian hover:text-cian"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-cian hover:text-cian"
             aria-label={`${j.nick} en X (@${j.x})`}
           >
             <Marca red="x" className="h-4 w-4" />

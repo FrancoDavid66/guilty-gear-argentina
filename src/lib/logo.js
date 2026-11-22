@@ -13,5 +13,7 @@ const animados = import.meta.glob('../assets/logo-animado/*.svg', {
   import: 'default',
 })
 
-export const logoUrl = Object.values(archivos)[0] ?? null
+// Si hay webp se usa ese (pesa mucho menos que el png)
+const ordenados = Object.entries(archivos).sort(([a], [b]) => (b.endsWith('.webp') ? 1 : 0) - (a.endsWith('.webp') ? 1 : 0))
+export const logoUrl = ordenados[0]?.[1] ?? null
 export const logoAnimadoUrl = Object.values(animados)[0] ?? null

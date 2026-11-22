@@ -60,7 +60,7 @@ export default function Header({ pagina = 'inicio' }) {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-noche/80 backdrop-blur-md">
         <BarraVivo />
         <div className="mx-auto flex h-14 max-w-[1240px] items-center justify-between gap-4 px-4 sm:px-6">
-          <button onClick={() => ir('inicio')} className="flex items-center gap-2.5" aria-label="Ir al inicio">
+          <button onClick={() => ir('inicio')} className="flex min-h-[44px] items-center gap-2.5" aria-label="Ir al inicio">
             <Logo className="h-9 w-9" />
             <span className="font-titulo text-[22px] font-black leading-none tracking-wide">GGA</span>
           </button>

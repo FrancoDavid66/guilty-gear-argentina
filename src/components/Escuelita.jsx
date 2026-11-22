@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { golpe } from '../lib/movimiento'
 import { escuelita } from '../data/gga'
-import { pendiente } from '../lib/scroll'
+import { irA, pendiente } from '../lib/scroll'
 import Titulo from './Titulo'
 import Aparece from './Aparece'
 import { Marca, Play, Flecha } from './Iconos'
@@ -64,7 +64,7 @@ function Video({ v, n }) {
         <p className="bajada text-azul">{v.etiqueta}</p>
         <h3 className="mt-2 font-titulo text-[26px] font-extrabold uppercase leading-[1.02] text-noche">{v.titulo}</h3>
         <p className="mt-3 flex-1 text-[16px] text-noche/70">{v.texto}</p>
-        <a href={link} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
+        <a href={link} target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-[44px] items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
           <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> Ver en YouTube <Flecha className="h-4 w-4" />
         </a>
       </div>
@@ -95,7 +95,7 @@ function Series() {
           <p className="bajada text-azul">Todas las clases · {total} videos</p>
           <h3 className="mt-1 font-titulo text-[clamp(2rem,8vw,3rem)] font-black uppercase leading-none">Elegí por dónde arrancar</h3>
         </div>
-        <a href={escuelita.canal} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
+        <a href={escuelita.canal} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
           <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> Canal de GGA <Flecha className="h-4 w-4" />
         </a>
       </div>
@@ -149,7 +149,8 @@ function Series() {
   )
 }
 
-export default function Escuelita() {
+// completa = false (inicio): solo los 3 videos destacados y el link a Aprendé
+export default function Escuelita({ completa = true }) {
   const riel = useRef(null)
   const [actual, setActual] = useState(0)
   const total = escuelita.videos.length
@@ -217,8 +218,18 @@ export default function Escuelita() {
         </div>
       </Aparece>
 
-      <Diccionario />
-      <Series />
+      {completa ? (
+        <>
+          <Diccionario />
+          <Series />
+        </>
+      ) : (
+        <div className="relative mx-auto mt-8 max-w-[1240px] px-5 sm:px-8">
+          <button onClick={() => irA('aprende')} className="boton boton-negro">
+            Ver todas las clases y el diccionario <Flecha />
+          </button>
+        </div>
+      )}
     </section>
   )
 }

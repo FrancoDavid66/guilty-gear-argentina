@@ -11,7 +11,7 @@ export default function Cabecera({ id }) {
       <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(2,190,254,.22),transparent_65%)]" />
       <div className="relative mx-auto max-w-[1240px] px-5 sm:px-8">
         <nav aria-label="Estás en" className="mb-6 flex items-center gap-2 text-[13px] text-white/50">
-          <button onClick={() => irA('inicio')} className="transition hover:text-cian">
+          <button onClick={() => irA('inicio')} className="inline-flex min-h-[44px] items-center transition hover:text-cian">
             Inicio
           </button>
           <span aria-hidden="true">/</span>

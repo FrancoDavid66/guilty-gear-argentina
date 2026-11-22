@@ -33,7 +33,6 @@ function Tarjeta({ p, i }) {
       href={perfilDe(p)}
       target="_blank"
       rel="noreferrer"
-      data-golpe
       className="group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-[18px] border border-white/10 bg-carbon p-4 transition-colors hover:border-cian"
     >
       {foto ? (
@@ -46,7 +45,7 @@ function Tarjeta({ p, i }) {
       <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-noche via-noche/40 to-transparent" />
       <span className="absolute left-4 top-4 font-mono text-[12px] text-white/45">#{String(i + 1).padStart(2, '0')}</span>
       <span className="relative">
-        <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-cian">{p.tanda}</span>
+        <span className="block text-[12px] font-bold uppercase tracking-[0.14em] text-cian">{p.tanda}</span>
         <span className="mt-1 block font-titulo text-[24px] font-black uppercase leading-[0.95] sm:text-[26px]">{p.nombre}</span>
         {p.nota && <span className="mt-1 block text-[12px] text-white/50">{p.nota}</span>}
         <span className="mt-2 block text-[12px] text-white/0 transition group-hover:text-white/70">Ver perfil oficial →</span>

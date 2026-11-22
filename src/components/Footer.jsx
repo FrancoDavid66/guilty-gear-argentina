@@ -69,7 +69,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-[13px] text-white/45 sm:flex-row sm:justify-between">
           <p>{aviso}</p>
-          <a href={sitio.credito.link} target="_blank" rel="noreferrer" className="hover:text-cian">
+          <a href={sitio.credito.link} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center hover:text-cian">
             {sitio.credito.texto}
           </a>
         </div>

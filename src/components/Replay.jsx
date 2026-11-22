@@ -39,7 +39,7 @@ function Momento({ m, oculto }) {
         className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-110"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-noche via-noche/30 to-transparent" />
-      <span className="chip absolute left-2 top-2 bg-cian !text-[11px] text-noche">{m.tag}</span>
+      <span className="chip absolute left-2 top-2 bg-cian !text-[12px] text-noche">{m.tag}</span>
       <span className="absolute bottom-2.5 left-3 right-10 font-titulo text-[19px] font-black uppercase leading-[1.02] text-white">{m.titulo}</span>
       <Play className="absolute bottom-3 right-3 h-6 w-6 text-white/80 transition group-hover:text-cian" />
     </a>
@@ -57,7 +57,7 @@ function Momentos() {
           <p className="bajada text-cian">Momentos de GGA</p>
           <h3 className="mt-1 font-titulo text-[clamp(2rem,8vw,3rem)] font-black uppercase leading-none">Así se vive la comunidad</h3>
         </div>
-        <a href={vods.principal.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-white hover:text-cian">
+        <a href={vods.principal.link} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-white hover:text-cian">
           <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> Ver todos los videos <Flecha className="h-4 w-4" />
         </a>
       </div>
@@ -76,7 +76,8 @@ function Momentos() {
   )
 }
 
-export default function Replay() {
+// completa = false (inicio): sin la tira de videos que se mueve
+export default function Replay({ completa = true }) {
   const p = vods.principal
   return (
     <section id="replay" className="relative overflow-hidden bg-azul pb-24 pt-24 lg:pb-32 lg:pt-32">
@@ -154,7 +155,7 @@ export default function Replay() {
         </div>
       </div>
 
-      <Momentos />
+      {completa && <Momentos />}
     </section>
   )
 }

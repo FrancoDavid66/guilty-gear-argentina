@@ -1,98 +1,72 @@
 import { useEffect, useRef, useState } from 'react'
-import { hero, sitio } from '../data/gga'
-import { crearEscena } from '../lib/escena3d'
-import { sinMovimiento } from '../lib/movimiento'
+import { discord, hero } from '../data/gga'
 import { logoUrl } from '../lib/logo'
-import { TIPOS_GOLPE, alCambiarGolpe, elegirGolpe, golpeActual } from './efectos/GolpesCanvas'
+import { irA } from '../lib/scroll'
+import { Resaltar } from '../lib/texto'
+import Aparece from './Aparece'
+import { Marca } from './Iconos'
 
-const NOMBRES = { azar: 'Al azar', tajo: 'Tajo', impacto: 'Impacto', rayo: 'Rayo', fuego: 'Fuego' }
-
-function SelectorGolpe() {
-  const [tipo, setTipo] = useState(golpeActual())
-  useEffect(() => alCambiarGolpe(setTipo), [])
-  if (sinMovimiento) return null
-  return (
-    <div
-      data-sin-golpe
-      role="group"
-      aria-label="Tipo de golpe al hacer clic"
-      className="pointer-events-auto absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-1 rounded-xl border border-white/10 bg-carbon/85 p-1 backdrop-blur-md"
-      style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
-    >
-      {['azar', ...TIPOS_GOLPE].map((t) => (
-        <button
-          key={t}
-          onClick={() => elegirGolpe(t)}
-          aria-pressed={tipo === t}
-          className={`min-h-[40px] whitespace-nowrap rounded-lg px-2.5 text-[13px] font-semibold transition sm:px-4 ${tipo === t ? 'bg-cian text-noche' : 'text-white/60 hover:text-white'}`}
-        >
-          {NOMBRES[t]}
-        </button>
-      ))}
-    </div>
-  )
-}
-
-// Portada estilo Igloo: el logo se arma de líneas a sólido mientras bajás. Cada clic es un golpe.
+// Portada: lo primero que se ve es el logo del team (en 3D, moviéndose de a poco) y la presentación.
+// El logo no reacciona al mouse ni a los clics.
 export default function Hero3D() {
-  const portada = useRef(null)
   const caja = useRef(null)
-  const [pct, setPct] = useState(sinMovimiento ? 100 : 0)
-  const [listo, setListo] = useState(sinMovimiento)
+  const [cargado, setCargado] = useState(false)
   const [sinWebGL, setSinWebGL] = useState(false)
 
   useEffect(() => {
-    const cerrar = crearEscena({
-      caja: caja.current,
-      portada: portada.current,
-      alAvanzar: (p, A) => {
-        setPct(p)
-        setListo(A > 0.82)
-      },
-    })
-    if (!cerrar) {
-      setSinWebGL(true)
-      setPct(100)
-      setListo(true)
+    // three.js (el 3D) se baja aparte: así la página aparece rápido, sobre todo en el celu
+    let cerrar = null
+    let vivo = true
+    import('../lib/escena3d')
+      .then(({ crearEscena }) => {
+        if (!vivo) return
+        cerrar = crearEscena({ caja: caja.current })
+        if (!cerrar) setSinWebGL(true)
+        setCargado(true)
+      })
+      .catch(() => {
+        setSinWebGL(true)
+        setCargado(true)
+      })
+    return () => {
+      vivo = false
+      cerrar?.()
     }
-    return () => cerrar?.()
   }, [])
 
-  const alto = sinMovimiento || sinWebGL ? 'h-[100svh]' : 'h-[260vh]'
-
   return (
-    <section id="inicio" ref={portada} className={`relative ${alto} bg-noche`} aria-labelledby="titulo-portada">
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(60%_55%_at_50%_45%,rgba(25,78,129,.45),transparent_70%),linear-gradient(#07090d,#08101c)]" />
-        <div ref={caja} aria-hidden="true" className="absolute inset-0" />
-        {sinWebGL && logoUrl && (
-          <img src={logoUrl} alt="" className="absolute left-1/2 top-1/2 w-[min(70vw,420px)] -translate-x-1/2 -translate-y-[60%]" />
-        )}
+    <section id="inicio" className="relative overflow-hidden bg-noche pt-[96px]" aria-labelledby="titulo-portada">
+      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(60%_55%_at_30%_45%,rgba(25,78,129,.45),transparent_70%)]" />
+      <div aria-hidden="true" className="lineas absolute inset-0 opacity-60" />
 
-        <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between px-4 pb-[86px] pt-[112px] sm:px-8">
-          <h1 id="titulo-portada" className="text-center font-titulo text-[15px] font-black uppercase tracking-[0.32em] text-cian sm:text-[18px]">
-            {sitio.nombre}
-          </h1>
-          <div className={`flex items-end justify-between gap-4 transition-opacity duration-500 ${listo ? 'max-sm:opacity-0' : ''}`}>
-            <p className="hidden max-w-[32ch] text-[14px] text-white/55 sm:block">
-              {sinMovimiento ? hero.bajada : 'Bajá para armar el logo. Tocá en cualquier lado para pegar.'}
-            </p>
-            <div className="ml-auto text-right font-texto text-[13px] font-bold tracking-[0.1em] text-white/55" aria-hidden="true">
-              ARMADO
-              <b className="block font-titulo text-[44px] font-black leading-none tracking-normal text-white tabular-nums">{pct}%</b>
-            </div>
-          </div>
+      <div className="relative mx-auto grid min-h-[calc(100svh-96px)] max-w-[1240px] items-center gap-4 px-5 pb-14 pt-4 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-20">
+        {/* el logo del team, primero */}
+        <div ref={caja} className="relative mx-auto aspect-[10/9] w-full max-w-[min(100%,46svh)] lg:max-w-[560px]">
+          {logoUrl && (sinWebGL || !cargado) && (
+            <img src={logoUrl} alt="" fetchpriority="high" className="absolute inset-0 m-auto h-[86%] w-[86%] object-contain" />
+          )}
         </div>
 
-        <p
-          className={`pointer-events-none absolute inset-x-3 bottom-[170px] z-10 text-center font-titulo text-[clamp(32px,4.8vw,64px)] font-black uppercase leading-[0.95] transition duration-500 sm:bottom-[15vh] ${listo ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
-        >
-          Comunidad <span className="text-cian">sudamericana</span>
-          <br />
-          de fighting games
-        </p>
-
-        <SelectorGolpe />
+        <Aparece className="text-center lg:text-left">
+          <p className="etiqueta">{hero.bajada}</p>
+          <h1 id="titulo-portada" className="font-titulo text-[clamp(44px,9vw,92px)] font-black uppercase leading-[0.88]">
+            {hero.titulo[0]} <span className="text-cian">{hero.titulo.slice(1).join(' ')}</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-[40ch] text-[17px] leading-relaxed text-white/80 sm:text-[19px] lg:mx-0">
+            <Resaltar texto={hero.texto} />
+          </p>
+          <p className="mx-auto mt-3 max-w-[40ch] text-[17px] leading-relaxed text-white/80 sm:text-[19px] lg:mx-0">
+            <Resaltar texto={hero.objetivo} />
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-2 lg:justify-start">
+            <a href={discord.link} target="_blank" rel="noreferrer" className="boton boton-cian">
+              <Marca red="discord" className="h-4 w-4" /> Unite al Discord
+            </a>
+            <button onClick={() => irA('escuelita')} className="boton boton-borde">
+              Jugá y aprendé ↓
+            </button>
+          </div>
+        </Aparece>
       </div>
     </section>
   )

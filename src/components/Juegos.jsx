@@ -100,10 +100,10 @@ function ProximoDelJuego({ j }) {
     >
       <span className="flex flex-col items-center bg-noche py-1 text-cian">
         <span className="font-titulo text-[26px] font-black leading-none">{d.num}</span>
-        <span className="font-mono text-[11px] uppercase">{d.dia}</span>
+        <span className="font-mono text-[12px] uppercase">{d.dia}</span>
       </span>
       <span className="min-w-0">
-        <span className="block font-mono text-[11px] uppercase tracking-[0.12em] text-cian">
+        <span className="block font-mono text-[12px] uppercase tracking-[0.12em] text-cian">
           {e.estado === 'vivo' ? 'En vivo ahora' : 'Próximo evento de este juego'}
         </span>
         <span className="block truncate font-titulo text-[20px] font-black uppercase leading-tight">
@@ -132,7 +132,7 @@ function Ficha({ j }) {
         <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {j.datos.map((d) => (
             <div key={d.que} className="bg-white/[.05] p-3 ring-1 ring-inset ring-white/10" title={d.nota}>
-              <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/55">{d.que}</dt>
+              <dt className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/55">{d.que}</dt>
               <dd className="mt-1 font-titulo text-[34px] font-black leading-none text-cian">{d.valor}</dd>
               {d.nota && <dd className="mt-1 text-[12px] leading-snug text-white/55">{d.nota}</dd>}
             </div>
@@ -219,14 +219,14 @@ export default function Juegos() {
                 }`}
                 style={{ borderRadius: 12 }}
               >
-                <span className={`font-mono text-[11px] uppercase tracking-[0.14em] ${activo ? 'text-noche/70' : 'text-cian'}`}>
+                <span className={`font-mono text-[12px] uppercase tracking-[0.14em] ${activo ? 'text-noche/70' : 'text-cian'}`}>
                   {activo ? '▶ P1' : `0${i + 1}`}
                 </span>
                 <span className="font-titulo text-[clamp(1.3rem,6vw,2.4rem)] font-black leading-none">
                   <span className="sm:hidden">{x.corto.split(' ')[0]}</span>
                   <span className="hidden sm:inline">{x.corto}</span>
                 </span>
-                <span className={`hidden font-mono text-[11px] uppercase tracking-[0.1em] sm:block ${activo ? 'text-noche/70' : 'text-white/50'}`}>{x.tag}</span>
+                <span className={`hidden font-mono text-[12px] uppercase tracking-[0.1em] sm:block ${activo ? 'text-noche/70' : 'text-white/50'}`}>{x.tag}</span>
                 {activo && !sinMovimiento && (
                   <motion.span layoutId="juego-activo" className="absolute inset-x-0 bottom-0 h-1 bg-noche" transition={{ duration: 0.3, ease: golpe }} />
                 )}

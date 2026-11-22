@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { eventos, calendario } from '../data/gga'
 import { proximoGeneral, armarCalendario, fechaArg, horaLocal, partes, diasTexto, diaCorto } from '../lib/agenda'
 import Flyer, { flyerDe } from './Flyer'
+import { irA } from '../lib/scroll'
 import { golpe, sinMovimiento } from '../lib/movimiento'
 import Titulo from './Titulo'
 import Aparece from './Aparece'
@@ -41,7 +42,7 @@ function Reloj({ ahora }) {
       {peligro && (
         <div className="flex items-center justify-between bg-[#FF4054] px-5 py-1.5 font-titulo text-[18px] font-black uppercase tracking-[0.12em] text-white sm:px-7">
           <span className="peligro whitespace-nowrap">Danger time</span>
-          <span className="hidden font-mono text-[11px] font-medium tracking-[0.1em] sm:inline">Arranca en menos de 1 hora</span>
+          <span className="hidden font-mono text-[12px] font-medium tracking-[0.1em] sm:inline">Arranca en menos de 1 hora</span>
         </div>
       )}
       <div className="grid gap-5 p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7 lg:grid-cols-1">
@@ -87,7 +88,7 @@ function Reloj({ ahora }) {
                 {i > 0 && <span className="pb-6 text-[28px] text-cian/60">:</span>}
                 <div className="text-center">
                   <span className={`block min-w-[2ch] bg-noche px-2 py-1.5 text-[clamp(2.1rem,10vw,3.2rem)] tabular-nums ${peligro ? 'text-[#FF4054]' : 'text-cian'}`}>{dos(v)}</span>
-                  <span className="mt-1 block font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-white/50">{l}</span>
+                  <span className="mt-1 block font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-white/50">{l}</span>
                 </div>
               </div>
             ))}
@@ -113,7 +114,7 @@ function Calendario({ ahora }) {
           <p className="bajada text-cian">Calendario del mes</p>
           <h3 className="mt-1 font-titulo text-[34px] font-black uppercase leading-none">{calendario.mes}</h3>
         </div>
-        <a href={calendario.post} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[14px] text-white/60 hover:text-cian">
+        <a href={calendario.post} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 text-[14px] text-white/60 hover:text-cian">
           <Marca red="x" className="h-3.5 w-3.5" /> Ver el post del calendario
         </a>
       </div>
@@ -150,17 +151,17 @@ function Calendario({ ahora }) {
                 >
                   <span className={`flex flex-col items-center justify-center py-1 ${destacado ? 'bg-noche text-cian' : 'bg-noche/60'}`}>
                     <span className="font-titulo text-[30px] font-black leading-none tabular-nums">{d.num}</span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.12em]">{d.dia}</span>
+                    <span className="font-mono text-[12px] uppercase tracking-[0.12em]">{d.dia}</span>
                   </span>
                   <span className="min-w-0">
                     <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       <span className={`font-titulo text-[22px] font-black uppercase leading-none ${e.estado === 'terminado' ? 'line-through decoration-2' : ''}`}>{e.nombre}</span>
                       {e.estado === 'vivo' && (
-                        <span className="flex items-center gap-1.5 bg-[#FF4054] px-1.5 py-0.5 font-mono text-[11px] font-medium uppercase text-white">
+                        <span className="flex items-center gap-1.5 bg-[#FF4054] px-1.5 py-0.5 font-mono text-[12px] font-medium uppercase text-white">
                           <span className="en-vivo h-1.5 w-1.5 rounded-full bg-white" /> En vivo
                         </span>
                       )}
-                      {e.estado === 'proximo' && <span className="bg-noche px-1.5 py-0.5 font-mono text-[11px] font-medium uppercase text-cian">{e.hoy ? 'Hoy' : 'Próximo'}</span>}
+                      {e.estado === 'proximo' && <span className="bg-noche px-1.5 py-0.5 font-mono text-[12px] font-medium uppercase text-cian">{e.hoy ? 'Hoy' : 'Próximo'}</span>}
                     </span>
                     <span className={`mt-1 block truncate text-[14px] ${destacado ? 'text-noche/75' : ''}`}>
                       {e.hora} hs · twitch.tv/{e.canal}
@@ -177,7 +178,7 @@ function Calendario({ ahora }) {
       </ol>
 
       {terminados.length > 0 && (
-        <button onClick={() => setVerTodo((v) => !v)} className="mt-3 font-mono text-[13px] uppercase tracking-[0.1em] text-white/55 hover:text-cian">
+        <button onClick={() => setVerTodo((v) => !v)} className="mt-2 inline-flex min-h-[44px] items-center font-mono text-[13px] uppercase tracking-[0.1em] text-white/55 hover:text-cian">
           {verTodo ? 'Ocultar los que ya pasaron' : `Ver los ${terminados.length} que ya pasaron`}
         </button>
       )}
@@ -189,7 +190,7 @@ function Reglamento() {
   const [abierto, setAbierto] = useState(false)
   return (
     <div className="relative mt-5 border-t border-noche/15 pt-4">
-      <button onClick={() => setAbierto((v) => !v)} className="flex w-full items-center justify-between font-titulo text-[19px] font-extrabold uppercase" aria-expanded={abierto}>
+      <button onClick={() => setAbierto((v) => !v)} className="flex min-h-[44px] w-full items-center justify-between font-titulo text-[19px] font-extrabold uppercase" aria-expanded={abierto}>
         Reglamento
         <span className={`text-[22px] leading-none transition ${abierto ? 'rotate-45' : ''}`}>+</span>
       </button>
@@ -292,7 +293,8 @@ function Tarjeta({ ev, i, inscripcion }) {
   )
 }
 
-export default function Eventos() {
+// completa = false (inicio): solo las dos tarjetas (lobbys y torneos) y el link a la página de Eventos
+export default function Eventos({ completa = true }) {
   const ahora = useAhora()
   const [a, b] = eventos.lista
   const cal = armarCalendario(calendario, eventos.lista, eventos.duracionHoras, ahora)
@@ -310,6 +312,7 @@ export default function Eventos() {
         <Titulo lineas={eventos.titulo} className="mt-3" />
         <div className="raya bg-cian" />
 
+        {completa && (
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-10">
           <Aparece>
             <Reloj ahora={ahora} />
@@ -319,9 +322,13 @@ export default function Eventos() {
           </Aparece>
         </div>
 
-        <Aparece>
-          <FlyerDelMes />
-        </Aparece>
+        )}
+
+        {completa && (
+          <Aparece>
+            <FlyerDelMes />
+          </Aparece>
+        )}
 
         {/* P1 VS P2 */}
         <div className="relative mt-10 grid gap-4 lg:grid-cols-2 lg:gap-6">
@@ -344,6 +351,13 @@ export default function Eventos() {
           <Tarjeta ev={b} i={1} inscripcion={torneoAbierto?.inscripcion} />
         </div>
 
+        {!completa && (
+          <div className="mt-8">
+            <button onClick={() => irA('eventos')} className="boton boton-cian">
+              Ver el calendario del mes <Flecha />
+            </button>
+          </div>
+        )}
         <p className="mt-6 text-[14px] text-white/50">Horarios en hora argentina (UTC-3). Los avisos y cambios salen primero en el Discord y en X.</p>
       </div>
     </section>

@@ -91,7 +91,7 @@ export default function Redes() {
                 </span>
                 <span className="text-right">
                   <span className="block font-titulo text-[30px] font-black leading-none text-cian group-hover:text-noche">{r.numero}</span>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.1em] opacity-60">{r.que}</span>
+                  <span className="font-mono text-[12px] uppercase tracking-[0.1em] opacity-60">{r.que}</span>
                 </span>
               </a>
             </Aparece>

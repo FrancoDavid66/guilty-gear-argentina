@@ -151,7 +151,7 @@ export default function Diccionario() {
         </AnimatePresence>
       </ul>
       {diccionario.terminos.length > 6 && (
-        <button onClick={() => setTodos((v) => !v)} className="mt-4 font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
+        <button onClick={() => setTodos((v) => !v)} className="mt-4 inline-flex min-h-[44px] items-center font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
           {todos ? 'Ver menos' : `Ver los ${diccionario.terminos.length} términos`}
         </button>
       )}

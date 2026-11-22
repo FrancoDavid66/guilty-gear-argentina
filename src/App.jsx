@@ -1,32 +1,36 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { iniciarScroll, usePagina, arriba, tomarAncla, irA } from './lib/scroll'
 import { paginas, sitio } from './data/gga'
 import Header from './components/Header'
 import Hero3D from './components/Hero3D'
-import Inicio from './components/Inicio'
 import Cabecera from './components/Cabecera'
-import Nosotros from './components/Nosotros'
-import Discord from './components/Discord'
-import ReglasDiscord from './components/ReglasDiscord'
-import Juegos from './components/Juegos'
-import Personajes from './components/Personajes'
-import Escuelita from './components/Escuelita'
-import Eventos from './components/Eventos'
-import Replay from './components/Replay'
-import Redes from './components/Redes'
 import Footer from './components/Footer'
 import DiscordFlotante from './components/DiscordFlotante'
-import GolpesCanvas from './components/efectos/GolpesCanvas'
-import WallBreak from './components/efectos/WallBreak'
 import InstantKill from './components/efectos/InstantKill'
 import Transicion from './components/efectos/Transicion'
+
+// Las páginas internas se bajan recién cuando se entra (la primera carga es más liviana en el celu)
+const Nosotros = lazy(() => import('./components/Nosotros'))
+const Discord = lazy(() => import('./components/Discord'))
+const ReglasDiscord = lazy(() => import('./components/ReglasDiscord'))
+const Juegos = lazy(() => import('./components/Juegos'))
+const Personajes = lazy(() => import('./components/Personajes'))
+const Escuelita = lazy(() => import('./components/Escuelita'))
+const Eventos = lazy(() => import('./components/Eventos'))
+const Replay = lazy(() => import('./components/Replay'))
+const Redes = lazy(() => import('./components/Redes'))
 
 // Cada página: qué secciones lleva
 const CONTENIDO = {
   inicio: () => (
     <>
+      {/* el orden del pedido: logo y presentación, Discord, jugá y aprendé, eventos, replays y redes */}
       <Hero3D />
-      <Inicio />
+      <Discord />
+      <Escuelita completa={false} />
+      <Eventos completa={false} />
+      <Replay completa={false} />
+      <Redes />
     </>
   ),
   nosotros: () => <Nosotros />,
@@ -40,7 +44,6 @@ const CONTENIDO = {
     <>
       <Eventos />
       <Replay />
-      <WallBreak seccion="eventos" />
     </>
   ),
   aprende: () => <Escuelita />,
@@ -63,9 +66,19 @@ export default function App() {
   // al cambiar de página: arriba de todo (o a la sección pedida) y título de la pestaña
   useEffect(() => {
     arriba(true)
-    const ancla = tomarAncla()
-    if (ancla) setTimeout(() => irA(ancla), 400)
     document.title = pagina === 'inicio' ? `${sitio.nombre} · Comunidad de Guilty Gear en Sudamérica` : `${paginas[pagina].titulo} · ${sitio.nombre}`
+    const ancla = tomarAncla()
+    if (!ancla) return
+    // la página puede tardar en bajar: esperar a que aparezca la sección (hasta 3 s)
+    let intentos = 0
+    const buscar = setInterval(() => {
+      intentos++
+      if (document.getElementById(ancla) || intentos > 30) {
+        clearInterval(buscar)
+        setTimeout(() => irA(ancla), 250)
+      }
+    }, 100)
+    return () => clearInterval(buscar)
   }, [pagina])
 
   const Contenido = CONTENIDO[pagina]
@@ -74,11 +87,12 @@ export default function App() {
       <Header pagina={pagina} />
       <main key={pagina}>
         {pagina !== 'inicio' && <Cabecera id={pagina} />}
-        <Contenido />
+        <Suspense fallback={<div className="min-h-[100svh] bg-noche" />}>
+          <Contenido />
+        </Suspense>
       </main>
       <Footer />
       <DiscordFlotante />
-      <GolpesCanvas />
       <InstantKill />
       <Transicion />
     </>
