@@ -1,7 +1,8 @@
 import { logoUrl } from '../lib/logo'
+import { t } from '../i18n'
 
 // Logo del team. Mientras no esté el PNG en src/assets/logo/ muestra uno provisorio.
-export default function Logo({ className = '', alt = 'Logo de Guilty Gear Argentina' }) {
+export default function Logo({ className = '', alt = t('Logo de Guilty Gear Argentina') }) {
   if (logoUrl) return <img src={logoUrl} alt={alt} className={`object-contain ${className}`} draggable="false" />
   return (
     <svg viewBox="0 0 200 200" className={className} role="img" aria-label={alt}>

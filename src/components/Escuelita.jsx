@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { golpe } from '../lib/movimiento'
 import { escuelita } from '../data/gga'
 import { irA, pendiente } from '../lib/scroll'
+import { t } from '../i18n'
 import Titulo from './Titulo'
 import Aparece from './Aparece'
 import { Marca, Play, Flecha } from './Iconos'
@@ -35,7 +36,7 @@ function Video({ v, n }) {
             allowFullScreen
           />
         ) : (
-          <a href={link} target="_blank" rel="noreferrer" onClick={reproducir} className="group absolute inset-0 block" aria-label={`Ver: ${v.titulo}`}>
+          <a href={link} target="_blank" rel="noreferrer" onClick={reproducir} className="group absolute inset-0 block" aria-label={`${t('Ver')}: ${v.titulo}`}>
             {/* Portada propia (se ve si no carga la miniatura de YouTube) */}
             <div className="absolute inset-0 lineas" />
             <div className="absolute inset-0 bg-gradient-to-br from-azul/70 to-transparent" />
@@ -48,7 +49,7 @@ function Video({ v, n }) {
               className={`absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105 ${miniatura ? 'opacity-100' : 'opacity-0'}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-noche/80 via-noche/10 to-transparent" />
-            <span className="chip absolute left-3 top-3 bg-cian text-noche">Clase {String(n).padStart(2, '0')}</span>
+            <span className="chip absolute left-3 top-3 bg-cian text-noche">{t('Clase')} {String(n).padStart(2, '0')}</span>
             <span
               className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-cian text-noche transition group-hover:scale-110 group-hover:bg-white"
               style={{ clipPath: 'polygon(25% 0, 100% 0, 75% 100%, 0 100%)' }}
@@ -65,7 +66,7 @@ function Video({ v, n }) {
         <h3 className="mt-2 font-titulo text-[26px] font-extrabold uppercase leading-[1.02] text-noche">{v.titulo}</h3>
         <p className="mt-3 flex-1 text-[16px] text-noche/70">{v.texto}</p>
         <a href={link} target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-[44px] items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
-          <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> Ver en YouTube <Flecha className="h-4 w-4" />
+          <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> {t('Ver en YouTube')} <Flecha className="h-4 w-4" />
         </a>
       </div>
     </article>
@@ -92,15 +93,15 @@ function Series() {
     <div id="clases" className="relative mx-auto mt-16 max-w-[1240px] scroll-mt-20 px-5 sm:px-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="bajada text-azul">Todas las clases · {total} videos</p>
-          <h3 className="mt-1 font-titulo text-[clamp(2rem,8vw,3rem)] font-black uppercase leading-none">Elegí por dónde arrancar</h3>
+          <p className="bajada text-azul">{t('Todas las clases')} · {total} {t('videos')}</p>
+          <h3 className="mt-1 font-titulo text-[clamp(2rem,8vw,3rem)] font-black uppercase leading-none">{t('Elegí por dónde arrancar')}</h3>
         </div>
         <a href={escuelita.canal} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
-          <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> Canal de GGA <Flecha className="h-4 w-4" />
+          <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> {t('Canal de GGA')} <Flecha className="h-4 w-4" />
         </a>
       </div>
 
-      <div className="sin-barra -mx-5 mt-6 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0" role="tablist" aria-label="Series de La Escuelita">
+      <div className="sin-barra -mx-5 mt-6 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0" role="tablist" aria-label={t('Series de La Escuelita')}>
         {escuelita.series.map((s) => (
           <button
             key={s.id}
@@ -194,10 +195,10 @@ export default function Escuelita({ completa = true }) {
               <span className="text-noche/40"> / {String(total).padStart(2, '0')}</span>
             </span>
             <div className="flex gap-1">
-              <button onClick={() => mover(-1)} disabled={actual === 0} className="flex h-11 w-11 items-center justify-center bg-noche text-white transition disabled:opacity-25" aria-label="Video anterior">
+              <button onClick={() => mover(-1)} disabled={actual === 0} className="flex h-11 w-11 items-center justify-center bg-noche text-white transition disabled:opacity-25" aria-label={t('Video anterior')}>
                 <Flecha className="h-5 w-5 rotate-180" />
               </button>
-              <button onClick={() => mover(1)} disabled={actual === total - 1} className="flex h-11 w-11 items-center justify-center bg-cian text-noche transition disabled:opacity-25" aria-label="Video siguiente">
+              <button onClick={() => mover(1)} disabled={actual === total - 1} className="flex h-11 w-11 items-center justify-center bg-cian text-noche transition disabled:opacity-25" aria-label={t('Video siguiente')}>
                 <Flecha className="h-5 w-5" />
               </button>
             </div>
@@ -226,7 +227,7 @@ export default function Escuelita({ completa = true }) {
       ) : (
         <div className="relative mx-auto mt-8 max-w-[1240px] px-5 sm:px-8">
           <button onClick={() => irA('aprende')} className="boton boton-negro">
-            Ver todas las clases y el diccionario <Flecha />
+            {t('Ver todas las clases y el diccionario')} <Flecha />
           </button>
         </div>
       )}

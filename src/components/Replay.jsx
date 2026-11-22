@@ -3,6 +3,7 @@ import Titulo from './Titulo'
 import Aparece from './Aparece'
 import Logo from './Logo'
 import { Marca, Rebobinar, Flecha, Play } from './Iconos'
+import { t } from '../i18n'
 
 function Barra({ avance = '38%' }) {
   return (
@@ -54,11 +55,11 @@ function Momentos() {
     <div className="relative mt-20">
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-end justify-between gap-4 px-5 sm:px-8">
         <div>
-          <p className="bajada text-cian">Momentos de GGA</p>
-          <h3 className="mt-1 font-titulo text-[clamp(2rem,8vw,3rem)] font-black uppercase leading-none">Así se vive la comunidad</h3>
+          <p className="bajada text-cian">{t('Momentos de GGA')}</p>
+          <h3 className="mt-1 font-titulo text-[clamp(2rem,8vw,3rem)] font-black uppercase leading-none">{t('Así se vive la comunidad')}</h3>
         </div>
         <a href={vods.principal.link} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-white hover:text-cian">
-          <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> Ver todos los videos <Flecha className="h-4 w-4" />
+          <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> {t('Ver todos los videos')} <Flecha className="h-4 w-4" />
         </a>
       </div>
       {filas.map((fila, i) => (
@@ -124,7 +125,7 @@ export default function Replay({ completa = true }) {
                 <Barra avance="62%" />
               </div>
               <span className="boton boton-cian brillo shrink-0">
-                <Marca red="youtube" className="h-5 w-5" /> Ir al canal <Flecha />
+                <Marca red="youtube" className="h-5 w-5" /> {t('Ir al canal')} <Flecha />
               </span>
             </a>
           </Aparece>
@@ -147,7 +148,7 @@ export default function Replay({ completa = true }) {
                 <p className="mt-1 font-mono text-[14px] text-white/60">{c.usuario}</p>
                 <Barra />
                 <span className="boton boton-blanco mt-6 w-full">
-                  <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> Ir al canal <Flecha />
+                  <Marca red="youtube" className="h-5 w-5 text-[#FF0033]" /> {t('Ir al canal')} <Flecha />
                 </span>
               </a>
             </Aparece>

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { diccionario } from '../data/gga'
 import { golpe, sinMovimiento } from '../lib/movimiento'
 import Aparece from './Aparece'
+import { t } from '../i18n'
 
 const FLECHA = { 1: '↙', 2: '↓', 3: '↘', 4: '←', 5: '•', 6: '→', 7: '↖', 8: '↑', 9: '↗' }
 const ORDEN = [7, 8, 9, 4, 5, 6, 1, 2, 3]
@@ -32,11 +33,11 @@ function Numpad({ mov }) {
     setPaso(0)
     let p = 0
     const total = mov.input.length + 1 // +1 = botón
-    const t = setInterval(() => {
+    const reloj = setInterval(() => {
       p = p >= total + 3 ? 0 : p + 1 // pausa al final y vuelve a empezar
       setPaso(p)
     }, 230)
-    return () => clearInterval(t)
+    return () => clearInterval(reloj)
   }, [mov])
 
   const digitos = mov.input.split('').map(Number)
@@ -89,12 +90,12 @@ export default function Diccionario() {
         <div className="tarjeta-corte grid gap-8 bg-noche p-6 text-white sm:p-8 lg:grid-cols-[300px_1fr] lg:items-center lg:gap-12">
           <Numpad mov={mov} />
           <div>
-            <p className="bajada text-cian">Notación numérica</p>
+            <p className="bajada text-cian">{t('Notación numérica')}</p>
             <p className="mt-2 max-w-[34rem] text-[16px] text-white/75">
-              Pensá el joystick como el teclado numérico: el 5 es el medio y cada número es una dirección, mirando hacia la derecha. Así se escriben todos los movimientos.
+              {t('Pensá el joystick como el teclado numérico: el 5 es el medio y cada número es una dirección, mirando hacia la derecha. Así se escriben todos los movimientos.')}
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Movimientos">
+            <div className="mt-5 flex flex-wrap gap-2" role="tablist" aria-label={t('Movimientos')}>
               {diccionario.movimientos.map((m) => (
                 <button
                   key={m.input}
@@ -118,7 +119,7 @@ export default function Diccionario() {
             </AnimatePresence>
 
             <div className="mt-5 border-t border-white/10 pt-5">
-              <p className="bajada text-white/55">Los 5 botones</p>
+              <p className="bajada text-white/55">{t('Los 5 botones')}</p>
               <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
                 {diccionario.botones.map((b) => (
                   <li key={b.b} className="flex items-center gap-2 text-[15px]">
@@ -152,7 +153,7 @@ export default function Diccionario() {
       </ul>
       {diccionario.terminos.length > 6 && (
         <button onClick={() => setTodos((v) => !v)} className="mt-4 inline-flex min-h-[44px] items-center font-titulo text-[18px] font-extrabold uppercase text-azul hover:text-cian">
-          {todos ? 'Ver menos' : `Ver los ${diccionario.terminos.length} términos`}
+          {todos ? t('Ver menos') : t('Ver los {n} términos', { n: diccionario.terminos.length })}
         </button>
       )}
     </div>

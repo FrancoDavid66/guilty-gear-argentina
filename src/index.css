@@ -19,10 +19,27 @@
 @tailwind utilities;
 
 @layer base {
+  /* Paleta del tema. Oscuro por defecto; html.claro = tema claro */
+  :root {
+    --noche: 7 9 13;
+    --carbon: 14 19 26;
+    --pizarra: 36 44 55;
+    --white: 255 255 255;
+    --cian-texto: 2 190 254;
+    color-scheme: dark;
+  }
+  html.claro {
+    --noche: 236 240 245;
+    --carbon: 255 255 255;
+    --pizarra: 214 222 232;
+    --white: 9 14 22;
+    --cian-texto: 0 108 166;
+    color-scheme: light;
+  }
   html {
     -webkit-tap-highlight-color: transparent;
     scroll-padding-top: 96px;
-    background: #07090d;
+    background: rgb(var(--noche));
   }
   html.lenis,
   html.lenis body {
@@ -33,6 +50,7 @@
   }
   body {
     @apply bg-noche font-texto text-blanco antialiased;
+    transition: background-color 0.3s;
     overflow-x: clip;
     font-size: 16px;
     line-height: 1.55;
@@ -514,4 +532,52 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .sacudir { animation: none; }
+}
+
+/* ===================== TEMA CLARO ===================== */
+.claro body {
+  color: #0b1016;
+}
+/* Franjas de color (celeste, azul, blanca) y botones celestes: se ven igual que en el tema oscuro */
+.claro .bg-cian,
+.claro .bg-azul,
+.claro .bg-blanco,
+.claro .boton-cian,
+.claro .boton-blanco:hover,
+.claro .hover\:bg-cian:hover,
+.claro .group:hover .group-hover\:bg-cian,
+.claro .numpad-celda.activa {
+  --noche: 7 9 13;
+  --carbon: 14 19 26;
+  --pizarra: 36 44 55;
+  --white: 255 255 255;
+  --cian-texto: 2 190 254;
+}
+/* el celeste como texto se oscurece para leerse sobre fondo claro */
+.claro .text-cian,
+.claro .etiqueta,
+.claro .hover\:text-cian:hover,
+.claro .group:hover .group-hover\:text-cian {
+  color: rgb(var(--cian-texto));
+}
+.claro .text-cian\/60 {
+  color: rgb(var(--cian-texto) / 0.6);
+}
+.claro .contorno {
+  -webkit-text-stroke-color: var(--trazo, rgb(var(--cian-texto)));
+}
+.claro .trama {
+  background-image: radial-gradient(rgba(9, 14, 22, 0.08) 1px, transparent 1.2px);
+}
+.claro .tarjeta {
+  box-shadow: 0 14px 34px -24px rgba(9, 14, 22, 0.35);
+}
+.claro section.bg-azul {
+  color: #f8f8f8;
+}
+.claro .halo {
+  background: radial-gradient(60% 55% at 30% 45%, rgba(2, 190, 254, 0.16), transparent 70%);
+}
+.claro .bg-azul\/40 {
+  opacity: 0.3;
 }

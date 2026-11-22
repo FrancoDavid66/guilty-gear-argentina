@@ -5,6 +5,7 @@ import { irA } from '../lib/scroll'
 import { Resaltar } from '../lib/texto'
 import Aparece from './Aparece'
 import { Marca } from './Iconos'
+import { t } from '../i18n'
 
 // Portada: lo primero que se ve es el logo del team (en 3D, moviéndose de a poco) y la presentación.
 // El logo no reacciona al mouse ni a los clics.
@@ -36,7 +37,7 @@ export default function Hero3D() {
 
   return (
     <section id="inicio" className="relative overflow-hidden bg-noche pt-[96px]" aria-labelledby="titulo-portada">
-      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(60%_55%_at_30%_45%,rgba(25,78,129,.45),transparent_70%)]" />
+      <div aria-hidden="true" className="halo absolute inset-0 bg-[radial-gradient(60%_55%_at_30%_45%,rgba(25,78,129,.45),transparent_70%)]" />
       <div aria-hidden="true" className="lineas absolute inset-0 opacity-60" />
 
       <div className="relative mx-auto grid min-h-[calc(100svh-96px)] max-w-[1240px] items-center gap-4 px-5 pb-14 pt-4 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-20">
@@ -60,10 +61,10 @@ export default function Hero3D() {
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-2 lg:justify-start">
             <a href={discord.link} target="_blank" rel="noreferrer" className="boton boton-cian">
-              <Marca red="discord" className="h-4 w-4" /> Unite al Discord
+              <Marca red="discord" className="h-4 w-4" /> {t('Unite al Discord')}
             </a>
             <button onClick={() => irA('escuelita')} className="boton boton-borde">
-              Jugá y aprendé ↓
+              {t('Jugá y aprendé')} ↓
             </button>
           </div>
         </Aparece>

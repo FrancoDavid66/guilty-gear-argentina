@@ -4,17 +4,18 @@ import Logo from './Logo'
 import { Marca } from './Iconos'
 import { useRef } from 'react'
 import { lanzarInstantKill } from './efectos/InstantKill'
+import { t } from '../i18n'
 
-const links = [
-  { red: 'discord', texto: 'Discord', sub: 'Servidor de GGA', link: discord.link },
-  ...eventos.lista.map((e) => ({ red: 'twitch', texto: 'Twitch', sub: `/${e.canal}`, link: e.link })),
-  ...vods.canales.map((c) => ({ red: 'youtube', texto: 'YouTube', sub: c.usuario, link: c.link })),
-  ...redes.otras.map((r) => ({ red: r.red, texto: `${r.nombre} GGA`, sub: r.usuario, link: r.link })),
-  { red: 'x', texto: 'X', sub: redes.principal.usuario, link: redes.principal.link },
-  ...redes.organizadores.map((o) => ({ red: 'x', texto: 'X', sub: o.usuario, link: o.link })),
-]
 
 export default function Footer() {
+  const links = [
+    { red: 'discord', texto: 'Discord', sub: t('Servidor de GGA'), link: discord.link },
+    ...eventos.lista.map((e) => ({ red: 'twitch', texto: 'Twitch', sub: `/${e.canal}`, link: e.link })),
+    ...vods.canales.map((c) => ({ red: 'youtube', texto: 'YouTube', sub: c.usuario, link: c.link })),
+    ...redes.otras.map((r) => ({ red: r.red, texto: `${r.nombre} GGA`, sub: r.usuario, link: r.link })),
+    { red: 'x', texto: 'X', sub: redes.principal.usuario, link: redes.principal.link },
+    ...redes.organizadores.map((o) => ({ red: 'x', texto: 'X', sub: o.usuario, link: o.link })),
+  ]
   const toques = useRef([])
   const tocar = () => {
     const ahora = Date.now()
@@ -33,11 +34,11 @@ export default function Footer() {
             <Logo className="h-24 w-24 shrink-0" />
             <div>
               <p className="font-titulo text-[34px] font-black uppercase leading-[0.9]">{sitio.nombre}</p>
-              <p className="mt-2 text-[15px] text-white/60">Comunidad sudamericana de fighting games</p>
+              <p className="mt-2 text-[15px] text-white/60">{t('Comunidad sudamericana de fighting games')}</p>
             </div>
           </div>
           <button onClick={() => irA('arriba')} className="boton boton-borde self-start lg:self-auto">
-            Continue? ▲ Volver arriba
+            Continue? ▲ {t('Volver arriba')}
           </button>
         </div>
 
@@ -63,12 +64,12 @@ export default function Footer() {
           Let's rock
         </p>
         <p className="mt-3 text-center font-mono text-[12px] uppercase tracking-[0.14em] text-white/35">
-          <span className="hidden sm:inline">Secreto de la comunidad: escribí 236236H</span>
-          <span className="sm:hidden">Secreto: tocá 3 veces el Let's rock</span>
+          <span className="hidden sm:inline">{t('Secreto de la comunidad: escribí 236236H')}</span>
+          <span className="sm:hidden">{t('Secreto: tocá 3 veces el Let\'s rock')}</span>
         </p>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-[13px] text-white/45 sm:flex-row sm:justify-between">
-          <p>{aviso}</p>
+          <p>{t(aviso)}</p>
           <a href={sitio.credito.link} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center hover:text-cian">
             {sitio.credito.texto}
           </a>

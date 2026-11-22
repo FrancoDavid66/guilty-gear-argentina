@@ -7,8 +7,9 @@ import Titulo from './Titulo'
 import Aparece from './Aparece'
 import Logo from './Logo'
 import { Marca, Flecha } from './Iconos'
+import { localeActual, t } from '../i18n'
 
-const fmt = (n) => n.toLocaleString('es-AR')
+const fmt = (n) => n.toLocaleString(localeActual())
 
 // Número que sube como contador de combo
 function Combo({ valor }) {
@@ -47,7 +48,7 @@ export default function Discord() {
             <p className="mt-6 max-w-[36rem] text-[17px] font-medium text-noche/85">{discord.texto}</p>
           </Aparece>
           <Aparece delay={0.1}>
-            <ul className="mt-6 flex flex-wrap gap-2" aria-label="Para qué sirve el Discord">
+            <ul className="mt-6 flex flex-wrap gap-2" aria-label={t('Para qué sirve el Discord')}>
               {discord.usos.map((u) => (
                 <li key={u} className="chip bg-noche text-white">
                   {u}
@@ -67,7 +68,7 @@ export default function Discord() {
                 <Logo className="h-16 w-16" alt="" />
               )}
               <div className="min-w-0">
-                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-white/50">Te invitaron a unirte a</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-white/50">{t('Te invitaron a unirte a')}</p>
                 <p className="truncate font-titulo text-[26px] font-black uppercase leading-tight">{vivo?.nombre ?? 'Guilty Gear Argentina'}</p>
               </div>
             </div>
@@ -77,17 +78,17 @@ export default function Discord() {
                 {!vivo && '+'}
                 <Combo valor={miembros} />
               </p>
-              <p className="mt-2 font-titulo text-[22px] font-extrabold uppercase tracking-wide">miembros y contando</p>
+              <p className="mt-2 font-titulo text-[22px] font-extrabold uppercase tracking-wide">{t('miembros y contando')}</p>
               <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-[15px] text-white/70">
                 {vivo?.conectados ? (
                   <span className="flex items-center gap-2">
                     <span className="conectado h-2.5 w-2.5 rounded-full bg-[#23A55A]" />
-                    {fmt(vivo.conectados)} conectados ahora
+                    {fmt(vivo.conectados)} {t('conectados ahora')}
                   </span>
                 ) : null}
                 <span className="flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-white/40" />
-                  Sudamérica entera
+                  {t('Sudamérica entera')}
                 </span>
               </div>
             </div>

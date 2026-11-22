@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { discord } from '../data/gga'
 import { Marca } from './Iconos'
+import { t } from '../i18n'
 
 // Botón fijo de Discord: aparece después de la portada
 export default function DiscordFlotante() {
@@ -26,10 +27,10 @@ export default function DiscordFlotante() {
           exit={{ opacity: 0, y: 30, scale: 0.8 }}
           className="fixed bottom-4 right-4 z-40 flex h-14 items-center gap-2 rounded-full bg-cian px-4 font-titulo text-[18px] font-black uppercase text-noche shadow-[0_10px_30px_rgba(2,190,254,.35)] sm:bottom-6 sm:right-6"
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
-          aria-label="Unite al Discord"
+          aria-label={t('Unite al Discord')}
         >
           <Marca red="discord" className="h-6 w-6" />
-          <span>Unite</span>
+          <span>{t('Unite')}</span>
         </motion.a>
       )}
     </AnimatePresence>

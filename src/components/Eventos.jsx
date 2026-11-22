@@ -4,6 +4,7 @@ import { eventos, calendario } from '../data/gga'
 import { proximoGeneral, armarCalendario, fechaArg, horaLocal, partes, diasTexto, diaCorto } from '../lib/agenda'
 import Flyer, { flyerDe } from './Flyer'
 import { irA } from '../lib/scroll'
+import { t } from '../i18n'
 import { golpe, sinMovimiento } from '../lib/movimiento'
 import Titulo from './Titulo'
 import Aparece from './Aparece'
@@ -15,8 +16,8 @@ const dos = (n) => String(n).padStart(2, '0')
 function useAhora() {
   const [ahora, setAhora] = useState(() => new Date())
   useEffect(() => {
-    const t = setInterval(() => setAhora(new Date()), 1000)
-    return () => clearInterval(t)
+    const reloj = setInterval(() => setAhora(new Date()), 1000)
+    return () => clearInterval(reloj)
   }, [])
   return ahora
 }
@@ -42,19 +43,19 @@ function Reloj({ ahora }) {
       {peligro && (
         <div className="flex items-center justify-between bg-[#FF4054] px-5 py-1.5 font-titulo text-[18px] font-black uppercase tracking-[0.12em] text-white sm:px-7">
           <span className="peligro whitespace-nowrap">Danger time</span>
-          <span className="hidden font-mono text-[12px] font-medium tracking-[0.1em] sm:inline">Arranca en menos de 1 hora</span>
+          <span className="hidden font-mono text-[12px] font-medium tracking-[0.1em] sm:inline">{t('Arranca en menos de 1 hora')}</span>
         </div>
       )}
       <div className="grid gap-5 p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7 lg:grid-cols-1">
         <div className="min-w-0">
           {prox.enVivo ? (
             <p className="flex items-center gap-2 font-titulo text-[18px] font-black uppercase tracking-wide text-[#FF4054]">
-              <span className="en-vivo h-3 w-3 rounded-full bg-[#FF4054]" /> En vivo ahora
+              <span className="en-vivo h-3 w-3 rounded-full bg-[#FF4054]" /> {t('En vivo ahora')}
               <span className="ml-1 -skew-x-12 bg-cian px-2 text-noche">Let's rock</span>
             </p>
           ) : (
             <p className="bajada flex items-center gap-2 text-cian">
-              Próximo evento {hoy && <span className="bg-cian px-1.5 py-0.5 text-noche">Hoy</span>}
+              {t('Próximo evento')} {hoy && <span className="bg-cian px-1.5 py-0.5 text-noche">{t('Hoy')}</span>}
             </p>
           )}
           <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-titulo text-[clamp(2rem,9vw,3rem)] font-black uppercase leading-none">
@@ -62,27 +63,27 @@ function Reloj({ ahora }) {
             {prox.juego && <span className={`chip !text-[13px] ${JUEGO[prox.juego]}`}>{prox.juego}</span>}
           </p>
           <p className="mt-2 text-[16px] text-white/75">
-            {f.dia} {f.hora} hs (Argentina) · twitch.tv/{prox.canal}
+            {f.dia} {f.hora} {t('hs')} ({t('hora argentina')}) · twitch.tv/{prox.canal}
           </p>
-          {local && <p className="mt-0.5 text-[14px] text-white/50">En tu hora: {local}</p>}
+          {local && <p className="mt-0.5 text-[14px] text-white/50">{t('En tu hora')}: {local}</p>}
           {prox.inscripcion && !prox.enVivo && (
             <a href={prox.inscripcion} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 font-titulo text-[18px] font-extrabold uppercase text-cian hover:text-white">
-              Inscribite en Challonge <Flecha className="h-4 w-4" />
+              {t('Inscribite en Challonge')} <Flecha className="h-4 w-4" />
             </a>
           )}
         </div>
 
         {prox.enVivo ? (
           <a href={prox.link} target="_blank" rel="noreferrer" className="boton boton-cian brillo">
-            <Marca red="twitch" /> Mirar en vivo
+            <Marca red="twitch" /> {t('Mirar en vivo')}
           </a>
         ) : (
-          <div className="flex items-end gap-1.5 font-titulo font-black leading-none" aria-label={`Faltan ${p.d} días, ${p.h} horas y ${p.m} minutos`}>
+          <div className="flex items-end gap-1.5 font-titulo font-black leading-none" aria-label={t('Faltan {d} días, {h} horas y {m} minutos', { d: p.d, h: p.h, m: p.m })}>
             {[
-              [p.d, 'días'],
-              [p.h, 'hs'],
-              [p.m, 'min'],
-              [p.s, 'seg'],
+              [p.d, t('días')],
+              [p.h, t('hs')],
+              [p.m, t('min')],
+              [p.s, t('seg')],
             ].map(([v, l], i) => (
               <div key={l} className="flex items-end gap-1.5">
                 {i > 0 && <span className="pb-6 text-[28px] text-cian/60">:</span>}
@@ -111,17 +112,17 @@ function Calendario({ ahora }) {
     <div className="mt-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="bajada text-cian">Calendario del mes</p>
+          <p className="bajada text-cian">{t('Calendario del mes')}</p>
           <h3 className="mt-1 font-titulo text-[34px] font-black uppercase leading-none">{calendario.mes}</h3>
         </div>
         <a href={calendario.post} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 text-[14px] text-white/60 hover:text-cian">
-          <Marca red="x" className="h-3.5 w-3.5" /> Ver el post del calendario
+          <Marca red="x" className="h-3.5 w-3.5" /> {t('Ver el post del calendario')}
         </a>
       </div>
 
       {quedan === 0 && (
         <p className="mt-4 bg-white/5 p-4 text-[15px] text-white/75">
-          Terminó el calendario de {calendario.mes.toLowerCase()}. El del mes que viene sale primero en X y en el Discord.
+          {t('Terminó el calendario de {mes}. El del mes que viene sale primero en X y en el Discord.', { mes: calendario.mes.toLowerCase() })}
         </p>
       )}
 
@@ -158,14 +159,14 @@ function Calendario({ ahora }) {
                       <span className={`font-titulo text-[22px] font-black uppercase leading-none ${e.estado === 'terminado' ? 'line-through decoration-2' : ''}`}>{e.nombre}</span>
                       {e.estado === 'vivo' && (
                         <span className="flex items-center gap-1.5 bg-[#FF4054] px-1.5 py-0.5 font-mono text-[12px] font-medium uppercase text-white">
-                          <span className="en-vivo h-1.5 w-1.5 rounded-full bg-white" /> En vivo
+                          <span className="en-vivo h-1.5 w-1.5 rounded-full bg-white" /> {t('En vivo')}
                         </span>
                       )}
-                      {e.estado === 'proximo' && <span className="bg-noche px-1.5 py-0.5 font-mono text-[12px] font-medium uppercase text-cian">{e.hoy ? 'Hoy' : 'Próximo'}</span>}
+                      {e.estado === 'proximo' && <span className="bg-noche px-1.5 py-0.5 font-mono text-[12px] font-medium uppercase text-cian">{e.hoy ? t('Hoy') : t('Próximo')}</span>}
                     </span>
                     <span className={`mt-1 block truncate text-[14px] ${destacado ? 'text-noche/75' : ''}`}>
-                      {e.hora} hs · twitch.tv/{e.canal}
-                      {e.inscripcion && e.estado !== 'terminado' ? ' · Inscripción abierta' : ''}
+                      {e.hora} {t('hs')} · twitch.tv/{e.canal}
+                      {e.inscripcion && e.estado !== 'terminado' ? ` · ${t('Inscripción abierta')}` : ''}
                     </span>
                   </span>
                   <span className={`chip ${destacado ? 'bg-noche text-cian' : e.estado === 'terminado' ? 'bg-white/5' : JUEGO[e.juego]}`}>{e.juego}</span>
@@ -179,7 +180,7 @@ function Calendario({ ahora }) {
 
       {terminados.length > 0 && (
         <button onClick={() => setVerTodo((v) => !v)} className="mt-2 inline-flex min-h-[44px] items-center font-mono text-[13px] uppercase tracking-[0.1em] text-white/55 hover:text-cian">
-          {verTodo ? 'Ocultar los que ya pasaron' : `Ver los ${terminados.length} que ya pasaron`}
+          {verTodo ? t('Ocultar los que ya pasaron') : t('Ver los {n} que ya pasaron', { n: terminados.length })}
         </button>
       )}
     </div>
@@ -191,7 +192,7 @@ function Reglamento() {
   return (
     <div className="relative mt-5 border-t border-noche/15 pt-4">
       <button onClick={() => setAbierto((v) => !v)} className="flex min-h-[44px] w-full items-center justify-between font-titulo text-[19px] font-extrabold uppercase" aria-expanded={abierto}>
-        Reglamento
+        {t('Reglamento')}
         <span className={`text-[22px] leading-none transition ${abierto ? 'rotate-45' : ''}`}>+</span>
       </button>
       <AnimatePresence initial={false}>
@@ -222,19 +223,19 @@ function FlyerDelMes() {
   if (!src) return null
   return (
     <div className="mt-10 grid items-center gap-6 rounded-[22px] border border-white/10 bg-carbon/80 p-5 sm:p-8 md:grid-cols-[minmax(0,380px)_1fr] md:gap-10">
-      <Flyer src={src} alt={`Calendario de actividades de Guilty Gear Argentina, ${calendario.mes}`} />
+      <Flyer src={src} alt={`${t('Calendario de actividades de Guilty Gear Argentina')}, ${calendario.mes}`} />
       <div>
-        <p className="bajada text-cian">Flyer del mes</p>
+        <p className="bajada text-cian">{t('Flyer del mes')}</p>
         <h3 className="mt-2 font-titulo text-[clamp(40px,5vw,64px)] font-black uppercase leading-[0.9]">{calendario.mes}</h3>
         <p className="mt-4 max-w-[46ch] text-[17px] text-white/70">
-          La placa con todas las actividades del mes, la misma que publicamos en X. Guardala o compartila con quien quiera arrancar.
+          {t('La placa con todas las actividades del mes, la misma que publicamos en X. Guardala o compartila con quien quiera arrancar.')}
         </p>
         <div className="mt-6 flex flex-wrap gap-2">
           <a href={src} target="_blank" rel="noreferrer" className="boton boton-cian">
-            Abrir el flyer
+            {t('Abrir el flyer')}
           </a>
           <a href={calendario.post} target="_blank" rel="noreferrer" className="boton boton-borde">
-            <Marca red="x" className="h-4 w-4" /> Ver el post
+            <Marca red="x" className="h-4 w-4" /> {t('Ver el post')}
           </a>
         </div>
       </div>
@@ -273,20 +274,20 @@ function Tarjeta({ ev, i, inscripcion }) {
 
       <p className="relative mt-5 flex items-center gap-2 border-t border-noche/15 pt-4 font-mono text-[13px] font-medium uppercase tracking-[0.08em]">
         <span className="h-2 w-2 bg-noche" />
-        {diasTexto(ev.dias)} · {ev.hora} hs
+        {diasTexto(ev.dias)} · {ev.hora} {t('hs')}
       </p>
-      {p1 && <p className="relative mt-1 font-mono text-[12px] uppercase tracking-[0.08em] text-noche/65">Cada semana, un Guilty distinto</p>}
+      {p1 && <p className="relative mt-1 font-mono text-[12px] uppercase tracking-[0.08em] text-noche/65">{t('Cada semana, un Guilty distinto')}</p>}
 
       {!p1 && <Reglamento />}
 
       <div className="relative mt-5 flex flex-col gap-2">
         {inscripcion && (
           <a href={inscripcion} target="_blank" rel="noreferrer" className="boton boton-negro">
-            Inscribite en Challonge <Flecha />
+            {t('Inscribite en Challonge')} <Flecha />
           </a>
         )}
         <a href={ev.link} target="_blank" rel="noreferrer" className={`boton ${p1 ? 'boton-negro' : 'boton-cian'}`}>
-          <Marca red="twitch" /> Ver en Twitch <Flecha />
+          <Marca red="twitch" /> {t('Ver en Twitch')} <Flecha />
         </a>
       </div>
     </motion.article>
@@ -354,11 +355,11 @@ export default function Eventos({ completa = true }) {
         {!completa && (
           <div className="mt-8">
             <button onClick={() => irA('eventos')} className="boton boton-cian">
-              Ver el calendario del mes <Flecha />
+              {t('Ver el calendario del mes')} <Flecha />
             </button>
           </div>
         )}
-        <p className="mt-6 text-[14px] text-white/50">Horarios en hora argentina (UTC-3). Los avisos y cambios salen primero en el Discord y en X.</p>
+        <p className="mt-6 text-[14px] text-white/50">{t('Horarios en hora argentina (UTC-3). Los avisos y cambios salen primero en el Discord y en X.')}</p>
       </div>
     </section>
   )

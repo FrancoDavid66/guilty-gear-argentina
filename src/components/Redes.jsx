@@ -3,6 +3,7 @@ import Titulo from './Titulo'
 import Aparece from './Aparece'
 import Logo from './Logo'
 import { Marca, Flecha } from './Iconos'
+import { t } from '../i18n'
 
 export default function Redes() {
   const p = redes.principal
@@ -35,15 +36,15 @@ export default function Redes() {
               <div className="relative mt-6 flex gap-6 border-t border-white/10 pt-5">
                 <p>
                   <span className="block font-titulo text-[38px] font-black leading-none text-cian">{p.numero}</span>
-                  <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/55">seguidores</span>
+                  <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/55">{t('seguidores')}</span>
                 </p>
                 <p>
                   <span className="block font-titulo text-[38px] font-black leading-none">{p.desde}</span>
-                  <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/55">en X desde</span>
+                  <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/55">{t('en X desde')}</span>
                 </p>
               </div>
               <span className="boton boton-cian brillo relative mt-8">
-                <Marca red="x" className="h-4 w-4" /> Seguir a GGA <Flecha />
+                <Marca red="x" className="h-4 w-4" /> {t('Seguir a GGA')} <Flecha />
               </span>
             </a>
           </Aparece>
@@ -60,12 +61,12 @@ export default function Redes() {
                 <span className="contorno pointer-events-none absolute -right-2 -top-4 font-titulo text-[130px] font-black leading-none [--trazo:rgba(7,9,13,.1)] group-hover:[--trazo:#02BEFE]" aria-hidden="true">
                   {o.lado}
                 </span>
-                <span className={`chip relative w-fit ${i === 0 ? 'bg-cian text-noche' : 'bg-azul text-white'}`}>{o.lado} · Organizador</span>
+                <span className={`chip relative w-fit ${i === 0 ? 'bg-cian text-noche' : 'bg-azul text-white'}`}>{o.lado} · {t('Organizador')}</span>
                 <p className="relative mt-6 font-titulo text-[42px] font-black uppercase leading-[0.9]">{o.nombre}</p>
                 <p className="relative mt-1 font-mono text-[14px] text-azul">{o.usuario}</p>
                 <p className="relative mt-3 flex-1 text-[16px] text-noche/70">{o.rol}</p>
                 <span className="boton boton-negro relative mt-6">
-                  <Marca red="x" className="h-4 w-4" /> Seguir <Flecha />
+                  <Marca red="x" className="h-4 w-4" /> {t('Seguir')} <Flecha />
                 </span>
               </a>
             </Aparece>
@@ -73,7 +74,7 @@ export default function Redes() {
         </div>
 
         {/* Más redes de GGA */}
-        <p className="bajada mt-12 text-azul">Más redes de GGA</p>
+        <p className="bajada mt-12 text-azul">{t('Más redes de GGA')}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {redes.otras.map((r, i) => (
             <Aparece key={r.link} delay={i * 0.06}>

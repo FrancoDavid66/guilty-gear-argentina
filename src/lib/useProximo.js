@@ -6,8 +6,8 @@ import { proximoGeneral } from './agenda'
 export function useProximo() {
   const [ahora, setAhora] = useState(() => new Date())
   useEffect(() => {
-    const t = setInterval(() => setAhora(new Date()), 1000)
-    return () => clearInterval(t)
+    const reloj = setInterval(() => setAhora(new Date()), 1000)
+    return () => clearInterval(reloj)
   }, [])
   const ev = proximoGeneral(calendario, eventos.lista, eventos.duracionHoras, ahora)
   return { ev, ahora }

@@ -7,6 +7,7 @@ import { irA, pendiente } from '../lib/scroll'
 import Titulo from './Titulo'
 import Aparece from './Aparece'
 import { Marca, Play, Flecha } from './Iconos'
+import { t } from '../i18n'
 
 // Imágenes propias opcionales: src/assets/juegos/<id>.jpg|png|webp
 const fotos = import.meta.glob('../assets/juegos/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' })
@@ -37,7 +38,7 @@ function Trailer({ j }) {
         <iframe
           className="absolute inset-0 h-full w-full"
           src={`https://www.youtube-nocookie.com/embed/${j.trailer}?autoplay=1&rel=0`}
-          title={`Trailer de ${j.nombre}`}
+          title={`${t('Trailer de')} ${j.nombre}`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
@@ -52,7 +53,7 @@ function Trailer({ j }) {
             setJugando(true)
           }}
           className="group absolute inset-0 block"
-          aria-label={`Ver el trailer de ${j.nombre}`}
+          aria-label={`${t('Ver el trailer de')} ${j.nombre}`}
         >
           {/* portada propia, por si no carga la de YouTube */}
           <div className="absolute inset-0 lineas" />
@@ -68,7 +69,7 @@ function Trailer({ j }) {
             className={`absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105 ${mini ? 'opacity-100' : 'opacity-0'}`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-noche via-noche/20 to-transparent" />
-          <span className="chip absolute left-3 top-3 bg-cian text-noche">Trailer oficial</span>
+          <span className="chip absolute left-3 top-3 bg-cian text-noche">{t('Trailer oficial')}</span>
           <span
             className="absolute left-1/2 top-1/2 flex h-[72px] w-[72px] -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-cian text-noche transition group-hover:scale-110 group-hover:bg-white"
             style={{ clipPath: 'polygon(25% 0, 100% 0, 75% 100%, 0 100%)' }}
@@ -104,10 +105,10 @@ function ProximoDelJuego({ j }) {
       </span>
       <span className="min-w-0">
         <span className="block font-mono text-[12px] uppercase tracking-[0.12em] text-cian">
-          {e.estado === 'vivo' ? 'En vivo ahora' : 'Próximo evento de este juego'}
+          {e.estado === 'vivo' ? t('En vivo ahora') : t('Próximo evento de este juego')}
         </span>
         <span className="block truncate font-titulo text-[20px] font-black uppercase leading-tight">
-          {e.nombre} · {e.hora} hs
+          {e.nombre} · {e.hora} {t('hs')}
         </span>
       </span>
       <Flecha className="h-5 w-5" />
@@ -145,7 +146,7 @@ function Ficha({ j }) {
         <h3 className="mt-3 font-titulo text-[clamp(2.2rem,9vw,3.4rem)] font-black uppercase leading-[0.9]">{j.nombre}</h3>
         <p className="mt-4 text-[17px] text-white/80">{j.resumen}</p>
 
-        <p className="bajada mt-7 text-cian">Lo que lo hace único</p>
+        <p className="bajada mt-7 text-cian">{t('Lo que lo hace único')}</p>
         <ul className="mt-3 grid gap-2">
           {j.mecanicas.map((m) => (
             <li key={m.nombre} className="border-l-4 border-cian bg-white/[.04] px-4 py-2.5">
@@ -170,10 +171,10 @@ function Ficha({ j }) {
             }}
             className="boton boton-cian brillo flex-1"
           >
-            Aprendé a jugarlo <Flecha />
+            {t('Aprendé a jugarlo')} <Flecha />
           </button>
           <a href={j.steam} target="_blank" rel="noreferrer" className="boton boton-borde flex-1">
-            Conseguilo en Steam <Flecha />
+            {t('Conseguilo en Steam')} <Flecha />
           </a>
         </div>
       </div>
@@ -205,7 +206,7 @@ export default function Juegos() {
         </Aparece>
 
         {/* Selección de juego, como la pantalla de selección de personaje */}
-        <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3" role="tablist" aria-label="Juegos">
+        <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3" role="tablist" aria-label={t('Juegos')}>
           {juegos.lista.map((x, i) => {
             const activo = x.id === actual
             return (
@@ -241,7 +242,7 @@ export default function Juegos() {
           </AnimatePresence>
         </div>
 
-        <p className="mt-8 text-[13px] text-white/40">Trailers oficiales de Arc System Works en YouTube.</p>
+        <p className="mt-8 text-[13px] text-white/40">{t('Trailers oficiales de Arc System Works en YouTube.')}</p>
       </div>
     </section>
   )

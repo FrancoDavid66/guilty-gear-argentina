@@ -1,4 +1,5 @@
 // Calcula el próximo evento (o el que está en vivo) a partir de los días y la hora argentina.
+import { idiomaActual, localeActual, t } from '../i18n'
 const ARG = -3 // UTC-3, sin horario de verano
 
 function ocurrenciasDe(evento, desde) {
@@ -30,12 +31,23 @@ export function proximoEvento(eventos, duracionHoras, ahora = new Date()) {
   return mejor
 }
 
-const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+const DIAS_IDIOMA = {
+  es: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+  en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  pt: ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'],
+}
+const diasDe = () => DIAS_IDIOMA[idiomaActual()] ?? DIAS_IDIOMA.es
 
 export function diasTexto(dias) {
-  const n = dias.map((d) => DIAS[d])
-  if (n.length === 1) return `Todos los ${n[0]}${n[0].endsWith('s') ? '' : 's'}`
-  return n.slice(0, -1).map(cap).join(', ') + ' y ' + n.at(-1)
+  const n = dias.map((d) => diasDe()[d])
+  const id = idiomaActual()
+  if (n.length === 1) {
+    if (id === 'en') return `Every ${n[0]}`
+    if (id === 'pt') return `Todo ${n[0]}${n[0] === 'sábado' || n[0] === 'domingo' ? '' : '-feira'}`
+    return `Todos los ${n[0]}${n[0].endsWith('s') ? '' : 's'}`
+  }
+  const y = id === 'en' ? ' and ' : id === 'pt' ? ' e ' : ' y '
+  return n.slice(0, -1).map(cap).join(', ') + y + n.at(-1)
 }
 
 function cap(s) {
@@ -47,14 +59,14 @@ export function fechaArg(fecha) {
   const f = new Date(fecha.getTime() + ARG * 3600_000)
   const hh = String(f.getUTCHours()).padStart(2, '0')
   const mm = String(f.getUTCMinutes()).padStart(2, '0')
-  return { dia: cap(DIAS[f.getUTCDay()]), hora: `${hh}:${mm}` }
+  return { dia: cap(diasDe()[f.getUTCDay()]), hora: `${hh}:${mm}` }
 }
 
 // Si quien mira no está en hora argentina, devuelve la hora en su zona
 export function horaLocal(fecha) {
   if (-new Date().getTimezoneOffset() / 60 === ARG) return null
   try {
-    return fecha.toLocaleString('es', { weekday: 'long', hour: '2-digit', minute: '2-digit' })
+    return fecha.toLocaleString(localeActual(), { weekday: 'long', hour: '2-digit', minute: '2-digit' })
   } catch {
     return null
   }
@@ -71,7 +83,7 @@ export function partes(ms) {
 }
 
 // ---------------- Calendario del mes ----------------
-const NOMBRES = { lobby: 'Lobby abierto', torneo: 'Torneo novatos' }
+const NOMBRES = { lobby: 'Lobby abierto', torneo: 'Torneo novatos' } // se traducen con t()
 
 // Pasa una fecha AAAA-MM-DD + hora argentina a Date
 export function fechaDe(fecha, hora) {
@@ -90,10 +102,10 @@ export function armarCalendario(calendario, lista, duracionHoras, ahora = new Da
     .sort((a, b) => a.inicio - b.inicio)
     .map((e) => {
       const base = porTipo[e.tipo] ?? {}
-      const t = e.inicio.getTime()
+      const ms = e.inicio.getTime()
       let estado = 'futuro'
-      if (ahora.getTime() >= t + dur) estado = 'terminado'
-      else if (ahora.getTime() >= t) estado = 'vivo'
+      if (ahora.getTime() >= ms + dur) estado = 'terminado'
+      else if (ahora.getTime() >= ms) estado = 'vivo'
       else if (!proximoMarcado) {
         estado = 'proximo'
         proximoMarcado = true
@@ -101,7 +113,7 @@ export function armarCalendario(calendario, lista, duracionHoras, ahora = new Da
       if (estado === 'vivo') proximoMarcado = true
       return {
         ...e,
-        nombre: e.nombre ?? NOMBRES[e.tipo] ?? e.tipo,
+        nombre: e.nombre ?? (NOMBRES[e.tipo] ? t(NOMBRES[e.tipo]) : e.tipo),
         canal: base.canal,
         link: base.link,
         estado,
@@ -136,5 +148,5 @@ export function proximoGeneral(calendario, lista, duracionHoras, ahora = new Dat
 
 export function diaCorto(fecha) {
   const f = new Date(fecha.getTime() + ARG * 3600_000)
-  return { num: f.getUTCDate(), dia: DIAS[f.getUTCDay()].slice(0, 3) }
+  return { num: f.getUTCDate(), dia: diasDe()[f.getUTCDay()].slice(0, 3) }
 }

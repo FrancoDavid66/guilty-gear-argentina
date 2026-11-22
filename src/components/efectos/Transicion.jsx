@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { paginas } from '../../data/gga'
 import { registrarTransicion } from '../../lib/scroll'
 import { sinMovimiento } from '../../lib/movimiento'
+import { t } from '../../i18n'
 
 // Cambio de página estilo pantalla de pelea: dos placas entran en diagonal, un tajo celeste
 // las corta, aparece el nombre de la página con "LET'S ROCK" y se abren hacia el otro lado.
@@ -24,7 +25,7 @@ export default function Transicion() {
     if (sinMovimiento) return
     return registrarTransicion((id, cambiar) => {
       timers.current.forEach(clearTimeout)
-      setNombre(id === 'inicio' ? 'Inicio' : (paginas[id]?.titulo ?? id))
+      setNombre(id === 'inicio' ? t('Inicio') : (paginas[id]?.titulo ?? id))
       setFase('cierra')
       timers.current = [
         setTimeout(() => {

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { personajes } from '../data/gga'
 import { golpe, sinMovimiento } from '../lib/movimiento'
 import Aparece from './Aparece'
+import { t } from '../i18n'
 
 // Imagen opcional de cada personaje: src/assets/personajes/<id>.webp|png|jpg
 // (imágenes propias o fan art con permiso; no arte oficial: ver gga.js)
@@ -45,10 +46,10 @@ function Tarjeta({ p, i }) {
       <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-noche via-noche/40 to-transparent" />
       <span className="absolute left-4 top-4 font-mono text-[12px] text-white/45">#{String(i + 1).padStart(2, '0')}</span>
       <span className="relative">
-        <span className="block text-[12px] font-bold uppercase tracking-[0.14em] text-cian">{p.tanda}</span>
+        <span className="block text-[12px] font-bold uppercase tracking-[0.14em] text-cian">{t(p.tanda)}</span>
         <span className="mt-1 block font-titulo text-[24px] font-black uppercase leading-[0.95] sm:text-[26px]">{p.nombre}</span>
         {p.nota && <span className="mt-1 block text-[12px] text-white/50">{p.nota}</span>}
-        <span className="mt-2 block text-[12px] text-white/0 transition group-hover:text-white/70">Ver perfil oficial →</span>
+        <span className="mt-2 block text-[12px] text-white/0 transition group-hover:text-white/70">{t('Ver perfil oficial')} →</span>
       </span>
     </motion.a>
   )
@@ -65,24 +66,24 @@ export default function Personajes() {
           <div>
             <p className="etiqueta">{personajes.juego}</p>
             <h2 id="titulo-personajes" className="titulo">
-              El plantel <span className="text-cian">completo</span>
+              {t('El plantel')} <span className="text-cian">{t('completo')}</span>
             </h2>
             <p className="mt-4 max-w-[52ch] text-white/65">
-              {personajes.lista.length} personajes: 15 de base y {personajes.lista.length - 15} de las temporadas de DLC. Tocá uno para ver su perfil en la web oficial del juego.
+              {t('{n} personajes: 15 de base y {m} de las temporadas de DLC. Tocá uno para ver su perfil en la web oficial del juego.', { n: personajes.lista.length, m: personajes.lista.length - 15 })}
             </p>
           </div>
-          <p className="chip self-start bg-white/[.06] text-white/70 lg:self-auto">Próximamente · {personajes.proximo}</p>
+          <p className="chip self-start bg-white/[.06] text-white/70 lg:self-auto">{t('Próximamente')} · {personajes.proximo}</p>
         </Aparece>
 
-        <div className="sin-barra -mx-5 mt-8 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Filtrar por temporada">
-          {TANDAS.map((t) => (
+        <div className="sin-barra -mx-5 mt-8 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label={t('Filtrar por temporada')}>
+          {TANDAS.map((x) => (
             <button
-              key={t}
-              onClick={() => setTanda(t)}
-              aria-pressed={tanda === t}
-              className={`min-h-[40px] shrink-0 rounded-full border px-4 text-[14px] font-semibold transition ${tanda === t ? 'border-cian bg-cian text-noche' : 'border-white/15 text-white/70 hover:border-white hover:text-white'}`}
+              key={x}
+              onClick={() => setTanda(x)}
+              aria-pressed={tanda === x}
+              className={`min-h-[40px] shrink-0 rounded-full border px-4 text-[14px] font-semibold transition ${tanda === x ? 'border-cian bg-cian text-noche' : 'border-white/15 text-white/70 hover:border-white hover:text-white'}`}
             >
-              {t}
+              {t(x)}
             </button>
           ))}
         </div>

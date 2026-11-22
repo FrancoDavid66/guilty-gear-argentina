@@ -6,8 +6,9 @@ import Aparece from './Aparece'
 import Team from './Team'
 import Galeria from './Galeria'
 import { Marca, Flecha } from './Iconos'
+import { localeActual, t } from '../i18n'
 
-const fmt = (n) => n.toLocaleString('es-AR')
+const fmt = (n) => n.toLocaleString(localeActual())
 
 // Página "Nosotros": quiénes somos, qué hacemos, historia y organizadores
 export default function Nosotros() {
@@ -16,11 +17,11 @@ export default function Nosotros() {
   const clases = escuelita.series.reduce((t, s) => t + s.clases.length, 0)
   const x = redes.principal
   const numeros = [
-    { n: fmt(miembros), t: 'personas en el Discord', destacado: true },
-    { n: x.numero, t: `seguidores en X, desde ${x.desde}` },
-    { n: clases, t: 'clases gratis en La Escuelita' },
-    { n: juegos.lista.length, t: 'Guilty Gear que jugamos' },
-    ...redes.otras.filter((r) => r.red !== 'instagram').map((r) => ({ n: r.numero, t: `${r.que} en ${r.nombre}` })),
+    { n: fmt(miembros), t: t('personas en el Discord'), destacado: true },
+    { n: x.numero, t: t('seguidores en X, desde {anio}', { anio: x.desde }) },
+    { n: clases, t: t('clases gratis en La Escuelita') },
+    { n: juegos.lista.length, t: t('Guilty Gear que jugamos') },
+    ...redes.otras.filter((r) => r.red !== 'instagram').map((r) => ({ n: r.numero, t: t('{que} en {red}', { que: r.que, red: r.nombre }) })),
   ]
 
   return (
@@ -29,7 +30,7 @@ export default function Nosotros() {
       <section className="bg-noche px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="quienes">
         <div className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-12">
           <Aparece className="lg:col-span-6">
-            <p className="etiqueta">Quiénes somos</p>
+            <p className="etiqueta">{t('Quiénes somos')}</p>
             <h2 id="quienes" className="font-titulo text-[clamp(36px,5vw,64px)] font-black uppercase leading-[0.95]">
               “{nosotros.bio.replace(/\.$/, '')}”
             </h2>
@@ -58,9 +59,9 @@ export default function Nosotros() {
       {/* Qué hacemos */}
       <section className="border-t border-white/10 bg-carbon px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="hacemos">
         <div className="mx-auto max-w-[1240px]">
-          <p className="etiqueta">Qué hacemos</p>
+          <p className="etiqueta">{t('Qué hacemos')}</p>
           <h2 id="hacemos" className="titulo">
-            Hacemos crecer <span className="text-cian">la comunidad</span>
+            {t('Hacemos crecer')} <span className="text-cian">{t('la comunidad')}</span>
           </h2>
           <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
             {nosotros.pilares.map((p, i) => (
@@ -80,11 +81,11 @@ export default function Nosotros() {
       <section id="historia" className="bg-noche px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="titulo-historia">
         <div className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <p className="etiqueta">Historia</p>
+            <p className="etiqueta">{t('Historia')}</p>
             <h2 id="titulo-historia" className="titulo">
-              Desde <span className="text-cian">2020</span>
+              {t('Desde')} <span className="text-cian">2020</span>
             </h2>
-            <p className="mt-4 text-white/60">Los hitos que se pueden ver en nuestro X y en el canal de YouTube.</p>
+            <p className="mt-4 text-white/60">{t('Los hitos que se pueden ver en nuestro X y en el canal de YouTube.')}</p>
           </div>
           <ol className="relative border-l border-white/15 lg:col-span-8">
             {nosotros.historia.map((h, i) => (
@@ -103,9 +104,9 @@ export default function Nosotros() {
       {/* Organizadores */}
       <section className="border-t border-white/10 bg-carbon px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="equipo">
         <div className="mx-auto max-w-[1240px]">
-          <p className="etiqueta">El equipo</p>
+          <p className="etiqueta">{t('El equipo')}</p>
           <h2 id="equipo" className="titulo">
-            Quiénes <span className="text-cian">organizan</span>
+            {t('Quiénes')} <span className="text-cian">{t('organizan')}</span>
           </h2>
           <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4">
             {redes.organizadores.map((o) => (
@@ -130,14 +131,14 @@ export default function Nosotros() {
           </div>
           <div className="tarjeta mt-4 flex flex-col items-start justify-between gap-4 border-cian/40 bg-[linear-gradient(120deg,#0f2238,#0b111a)] sm:flex-row sm:items-center">
             <p className="text-[17px]">
-              ¿Querés jugar, aprender o dar una mano con los eventos? <b className="text-cian">Todo arranca en el Discord.</b>
+              {t('¿Querés jugar, aprender o dar una mano con los eventos?')} <b className="text-cian">{t('Todo arranca en el Discord.')}</b>
             </p>
             <div className="flex flex-wrap gap-2">
               <a href={discord.link} target="_blank" rel="noreferrer" className="boton boton-cian">
-                <Marca red="discord" className="h-4 w-4" /> Unite al Discord
+                <Marca red="discord" className="h-4 w-4" /> {t('Unite al Discord')}
               </a>
               <button onClick={() => irA('reglas')} className="boton boton-borde">
-                Ver las reglas
+                {t('Ver las reglas')}
               </button>
             </div>
           </div>

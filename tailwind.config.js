@@ -5,9 +5,11 @@ export default {
     extend: {
       colors: {
         // Paleta sacada del calendario de GGA en X (nov 2026) y del avatar
-        noche: '#07090D', // fondo general
-        carbon: '#0E131A',
-        pizarra: '#242C37',
+        // noche / carbon / pizarra / white cambian con el tema (ver .claro en index.css)
+        noche: 'rgb(var(--noche) / <alpha-value>)', // fondo general
+        carbon: 'rgb(var(--carbon) / <alpha-value>)',
+        pizarra: 'rgb(var(--pizarra) / <alpha-value>)',
+        white: 'rgb(var(--white) / <alpha-value>)',
         azul: '#194E81', // azul profundo del logo
         cian: '#02BEFE', // el azul eléctrico de las placas
         hielo: '#E9F7FE',
