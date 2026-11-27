@@ -1,12 +1,18 @@
-import { discord, escuelita, hero, juegos, nosotros, redes } from '../data/gga'
+import { discord, escuelita, hero, juegos, nosotros, redes, team } from '../data/gga'
 import { useDiscord } from '../lib/discord'
 import { Resaltar } from '../lib/texto'
 import { irA } from '../lib/scroll'
 import Aparece from './Aparece'
-import Team from './Team'
+import Team, { BotonX, iniciales } from './Team'
 import Galeria from './Galeria'
-import { Marca, Flecha } from './Iconos'
+import Flyer from './Flyer'
+import { Marca } from './Iconos'
 import { localeActual, t } from '../i18n'
+
+// Obras de la artista de GGA (opcional): src/assets/arte/*.jpg|png|webp, ordenadas por nombre
+const obras = Object.entries(import.meta.glob('../assets/arte/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' }))
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, url]) => url)
 
 const fmt = (n) => n.toLocaleString(localeActual())
 
@@ -63,7 +69,7 @@ export default function Nosotros() {
           <h2 id="hacemos" className="titulo">
             {t('Hacemos crecer')} <span className="text-cian">{t('la comunidad')}</span>
           </h2>
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {nosotros.pilares.map((p, i) => (
               <Aparece key={p.titulo} delay={i * 0.06} className="tarjeta flex min-h-[240px] flex-col bg-noche">
                 <span className="font-mono text-[13px] text-cian">0{i + 1}</span>
@@ -83,7 +89,7 @@ export default function Nosotros() {
           <div className="lg:col-span-4">
             <p className="etiqueta">{t('Historia')}</p>
             <h2 id="titulo-historia" className="titulo">
-              {t('Desde')} <span className="text-cian">2020</span>
+              {t('Desde')} <span className="text-cian">{nosotros.historia[0].anio}</span>
             </h2>
             <p className="mt-4 text-white/60">{t('Los hitos que se pueden ver en nuestro X y en el canal de YouTube.')}</p>
           </div>
@@ -104,32 +110,62 @@ export default function Nosotros() {
       {/* Organizadores */}
       <section className="border-t border-white/10 bg-carbon px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="equipo">
         <div className="mx-auto max-w-[1240px]">
-          <p className="etiqueta">{t('El equipo')}</p>
+          <p className="etiqueta">{t('El staff')}</p>
           <h2 id="equipo" className="titulo">
             {t('Quiénes')} <span className="text-cian">{t('organizan')}</span>
           </h2>
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4">
-            {redes.organizadores.map((o) => (
-              <a key={o.nombre} href={o.link} target="_blank" rel="noreferrer" className="tarjeta group flex items-center gap-5 bg-noche transition hover:border-cian">
-                <span aria-hidden="true" className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-azul font-titulo text-[34px] font-black">
-                  {o.nombre
-                    .split(' ')
-                    .map((p) => p[0])
-                    .join('')}
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+            {team.staff.map((o, i) => (
+              <Aparece
+                key={o.nick}
+                delay={Math.min(i, 6) * 0.04}
+                className={`tarjeta flex items-center gap-4 bg-noche ${i === 0 ? 'border-cian/60 sm:col-span-2 lg:col-span-3' : ''}`}
+              >
+                <span
+                  aria-hidden="true"
+                  className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl font-titulo text-[28px] font-black ${
+                    i === 0 ? 'bg-cian text-noche' : 'bg-azul text-white'
+                  }`}
+                >
+                  {iniciales(o.nick)}
                 </span>
-                <span className="min-w-0">
-                  <span className="block font-titulo text-[34px] font-black uppercase leading-none">{o.nombre}</span>
-                  <span className="mt-1 block text-[15px] text-white/60">
-                    {o.rol} · {o.usuario}
-                  </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-titulo text-[28px] font-black uppercase leading-none">{o.nick}</span>
+                  <span className="mt-1 block text-[15px] leading-snug text-white/60">{o.rol}</span>
                 </span>
-                <span className="ml-auto text-cian transition group-hover:translate-x-1">
-                  <Flecha />
-                </span>
-              </a>
+                <BotonX usuario={o.x} nombre={o.nick} />
+              </Aparece>
             ))}
           </div>
-          <div className="tarjeta mt-4 flex flex-col items-start justify-between gap-4 border-cian/40 bg-[linear-gradient(120deg,#0f2238,#0b111a)] sm:flex-row sm:items-center">
+
+          {/* La artista de GGA (sus obras opcionales: src/assets/arte/) */}
+          <Aparece className="tarjeta mt-4 bg-noche">
+            <div className="grid items-center gap-5 sm:grid-cols-[auto_1fr_auto]">
+              <span aria-hidden="true" className="flex h-20 w-20 items-center justify-center rounded-2xl bg-cian text-noche">
+                <svg viewBox="0 0 24 24" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L11 15.8 8.2 13z" />
+                  <path d="M7.5 14.2c-2 0-3.5 1.6-3.5 3.6 0 1.5-.7 2.4-2 3.2 4.3.6 7.8-.6 8.3-3.9z" />
+                </svg>
+              </span>
+              <span className="min-w-0">
+                <span className="etiqueta !mb-1 block">{team.artista.rol}</span>
+                <span className="block font-titulo text-[clamp(36px,5vw,52px)] font-black uppercase leading-none">{team.artista.nick}</span>
+                <span className="mt-2 block max-w-[52ch] text-[16px] text-white/65">{team.artista.texto}</span>
+              </span>
+              <a href={`https://x.com/${team.artista.x}`} target="_blank" rel="noreferrer" className="boton boton-borde justify-self-start">
+                <Marca red="x" className="h-4 w-4" /> {t('Ver su arte')}
+              </a>
+            </div>
+            {obras.length > 0 && (
+              <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                {obras.map((src, i) => (
+                  <Flyer key={src} src={src} alt={`${t('Arte de')} ${team.artista.nick} ${i + 1}`} imgClassName="aspect-[4/3] object-cover" />
+                ))}
+              </div>
+            )}
+          </Aparece>
+
+          <div className="fijo tarjeta mt-4 flex flex-col items-start justify-between gap-4 border-cian/40 bg-[linear-gradient(120deg,#0f2238,#0b111a)] sm:flex-row sm:items-center">
             <p className="text-[17px]">
               {t('¿Querés jugar, aprender o dar una mano con los eventos?')} <b className="text-cian">{t('Todo arranca en el Discord.')}</b>
             </p>

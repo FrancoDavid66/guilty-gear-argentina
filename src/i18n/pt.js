@@ -156,7 +156,7 @@ export default {
   },
   menu: [{ nombre: 'Sobre nós' }, { nombre: 'Jogos' }, { nombre: 'Eventos' }, { nombre: 'Aprenda' }, { nombre: 'Comunidade' }],
   paginas: {
-    nosotros: { bajada: 'Quem somos', titulo: 'Sobre nós', texto: 'A comunidade sul-americana de Guilty Gear: lobbies, torneios para novatos e aulas grátis desde 2020.' },
+    nosotros: { bajada: 'Quem somos', titulo: 'Sobre nós', texto: 'A comunidade sul-americana de Guilty Gear: lobbies, torneios para novatos e aulas grátis desde 2019.' },
     juegos: { titulo: 'Jogos', texto: 'Os três Guilty que jogamos, suas mecânicas e o elenco completo do mais atual.' },
     eventos: { bajada: 'Ao vivo na Twitch', titulo: 'Eventos', texto: 'Lobbies abertos às terças e quintas, torneio de novatos aos sábados e tudo o que já aconteceu.' },
     aprende: { bajada: 'La Escuelita da GGA', titulo: 'Aprenda', texto: 'Aulas grátis para começar do zero ou subir de nível, e o dicionário para entender como a gente fala.' },
@@ -171,7 +171,8 @@ export default {
       { titulo: 'Ligas e crew battles', texto: 'Ligas próprias e crew battles contra comunidades da região, como Brasil e VAL.' },
     ],
     historia: [
-      { texto: 'Nasce a Guilty Gear Argentina (a conta do X @GearArgentina é de outubro de 2020).' },
+      { texto: 'Nasce a Guilty Gear Argentina.' },
+      { texto: 'Abre a conta do X @GearArgentina (outubro de 2020).' },
       { texto: 'Torneio de Verão 2021 e os primeiros eventos gravados no canal do YouTube.' },
       { anio: 'Ligas', texto: 'Liga Dark Winter, Rookie of the Winter e crew battles contra Brasil, VAL e TIER.' },
       { texto: 'Liga Argentina de GGST 2023 e Torneio de Natal 2023.' },
@@ -190,5 +191,18 @@ export default {
       { titulo: 'Termos de serviço do Discord', texto: 'Para ter conta é preciso cumpri-los, idade mínima incluída.' },
     ],
   },
-  team: { texto: 'Além de comunidade, somos um time semiprofissional que compete na cena de Guilty Gear Strive.' },
+  team: {
+    texto: 'Além de comunidade, somos um time semiprofissional que compete na cena de Guilty Gear Strive.',
+    capitanes: [{ rol: 'Capitã' }, { rol: 'Capitão' }, { rol: 'Capitão' }],
+    staff: [
+      { rol: 'Dono da Guilty Gear Argentina' },
+      { rol: 'TO de Guilty Gear ACPR' },
+      { rol: 'Edição de vídeo' },
+      { rol: 'Design de imagens' },
+      { rol: 'TO, caster, design de imagens e CM' },
+      { rol: 'TO (organizador de torneios)' },
+      { rol: 'TO de Guilty Gear ACPR' },
+    ],
+    artista: { rol: 'Artista da GGA', texto: 'As ilustrações dos nossos flyers e artes são obra dela.' },
+  },
 }

@@ -546,7 +546,10 @@
 .claro .boton-blanco:hover,
 .claro .hover\:bg-cian:hover,
 .claro .group:hover .group-hover\:bg-cian,
-.claro .numpad-celda.activa {
+.claro .numpad-celda.activa,
+.claro .fijo,
+.claro [class*='bg-[#FF4054]'],
+.claro [class*='bg-[#2a0d14]'] {
   --noche: 7 9 13;
   --carbon: 14 19 26;
   --pizarra: 36 44 55;
@@ -572,7 +575,8 @@
 .claro .tarjeta {
   box-shadow: 0 14px 34px -24px rgba(9, 14, 22, 0.35);
 }
-.claro section.bg-azul {
+.claro section.bg-azul,
+.claro .fijo {
   color: #f8f8f8;
 }
 .claro .halo {

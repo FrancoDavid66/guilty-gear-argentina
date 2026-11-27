@@ -32,7 +32,7 @@ export default function ReglasDiscord() {
               ))}
             </ol>
           ) : (
-            <Aparece className="tarjeta flex flex-col items-start gap-4 border-cian/40 bg-[linear-gradient(120deg,#0f2238,#0b111a)]">
+            <Aparece className="fijo tarjeta flex flex-col items-start gap-4 border-cian/40 bg-[linear-gradient(120deg,#0f2238,#0b111a)]">
               <p className="text-[18px]">
                 {t('Las reglas completas del server se leen')} <b className="text-cian">{t('adentro del Discord')}</b>. {t('Leelas apenas entres: valen para el chat, los lobbys y los torneos.')}
               </p>

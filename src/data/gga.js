@@ -414,7 +414,7 @@ export const aviso =
 //  PÁGINAS: título y bajada de la cabecera de cada página
 // ---------------------------------------------------------------------
 export const paginas = {
-  nosotros: { bajada: 'Quiénes somos', titulo: 'Nosotros', texto: 'La comunidad sudamericana de Guilty Gear: lobbys, torneos para novatos y clases gratis desde 2020.' },
+  nosotros: { bajada: 'Quiénes somos', titulo: 'Nosotros', texto: 'La comunidad sudamericana de Guilty Gear: lobbys, torneos para novatos y clases gratis desde 2019.' },
   juegos: { bajada: 'Strive · Xrd REV 2 · +R', titulo: 'Juegos', texto: 'Los tres Guilty que jugamos, sus mecánicas y el plantel completo del más actual.' },
   eventos: { bajada: 'En vivo por Twitch', titulo: 'Eventos', texto: 'Lobbys abiertos los martes y jueves, torneo de novatos los sábados y todo lo que ya pasó.' },
   aprende: { bajada: 'La Escuelita de GGA', titulo: 'Aprendé', texto: 'Clases gratis para arrancar de cero o subir de nivel, y el diccionario para entender cómo hablamos.' },
@@ -435,7 +435,8 @@ export const nosotros = {
   ],
   // Hitos que se ven en X y en el canal de YouTube de GGA
   historia: [
-    { anio: '2020', texto: 'Nace Guilty Gear Argentina (la cuenta de X @GearArgentina es de octubre de 2020).' },
+    { anio: '2019', texto: 'Nace Guilty Gear Argentina.' },
+    { anio: '2020', texto: 'Abre la cuenta de X @GearArgentina (octubre de 2020).' },
     { anio: '2021', texto: 'Torneo de Verano 2021 y primeros eventos grabados en el canal de YouTube.' },
     { anio: 'Ligas', texto: 'Liga Dark Winter, Rookie of the Winter y crew battles contra Brasil, VAL y TIER.' },
     { anio: '2023', texto: 'Liga Argentina de GGST 2023 y Torneo de Navidad 2023.' },
@@ -525,13 +526,37 @@ export const inicio = {
 // ---------------------------------------------------------------------
 export const team = {
   texto: 'Además de comunidad, somos un equipo semi-profesional que compite en la escena de Guilty Gear Strive.',
-  jugadores: [
-    { id: 'pacha', nick: 'Pacha' },
-    { id: 'orderkyo', nick: 'Order Kyo', x: 'orderkyo' },
-    { id: 'jest', nick: 'Jest', x: 'JestElPibe' },
-    { id: 'tsubomikyo', nick: 'Tsubomi Kyo' },
-    { id: 'agma', nick: 'Agma' },
+  // Orden alfabético. Tarjeta opcional de cada uno: src/assets/team/<id>.jpg|png|webp
+  capitanes: [
+    { id: 'melandra', nick: 'Melandra', x: 'MelandraRain', rol: 'Capitana' },
+    { id: 'nabbori', nick: 'Nabbori', x: 'Nabbori1', rol: 'Capitán' },
+    { id: 'orderkyo', nick: 'Order Kyo', x: 'orderkyo', rol: 'Capitán' },
   ],
+  jugadores: [
+    { id: 'agma', nick: 'Agma', x: 'agma_fg' },
+    { id: 'alka', nick: 'Alka', x: 'alka_ri' },
+    { id: 'draxzorg', nick: 'Draxzorg', x: 'Draxzorg' },
+    { id: 'em484', nick: 'Em484', x: 'Em_484z' },
+    { id: 'goldyr', nick: 'Goldyr', x: 'enzoefb' },
+    { id: 'kaelus', nick: 'Kaelus Von Sestiaf', x: 'KaelusSestiaf' },
+    { id: 'meaty', nick: 'Meaty', x: 'JustMeaty_' },
+    { id: 'megalius', nick: 'Megalius', x: 'MegaLisandro' },
+    { id: 'naocchi', nick: 'Naocchi', x: 'Naocchi_14' },
+    { id: 'pacha', nick: 'Pacha', x: 'PACHA_47' },
+    { id: 'rubik', nick: 'Rubik', x: 'RubiK203' },
+    { id: 'tsubomikyo', nick: 'Tsubomi Kyo / K', x: 'solo_soy_k' },
+  ],
+  // Staff (página Nosotros): el dueño primero, el resto en orden alfabético
+  staff: [
+    { nick: 'Maverto', rol: 'Dueño de Guilty Gear Argentina', x: 'MavertLupin' },
+    { nick: 'Decroz', rol: 'TO de Guilty Gear ACPR' },
+    { nick: 'Fiuxereth', rol: 'Edición de video' },
+    { nick: 'Hachiro', rol: 'Diseño de imágenes' },
+    { nick: 'Nabbori', rol: 'TO, caster, diseño de imágenes y CM', x: 'Nabbori1' },
+    { nick: 'Order Kyo', rol: 'TO (organizador de torneos)', x: 'orderkyo' },
+    { nick: 'Samysyep', rol: 'TO de Guilty Gear ACPR' },
+  ],
+  artista: { nick: 'Oarion', rol: 'Artista de GGA', x: '0arionTodd', texto: 'Las ilustraciones de nuestros flyers y placas son obra suya.' },
 }
 
 // ---------------------------------------------------------------------
