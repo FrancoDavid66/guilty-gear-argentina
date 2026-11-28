@@ -6,7 +6,7 @@
 export const sitio = {
   nombre: 'Guilty Gear Argentina',
   sigla: 'GGA',
-  dominio: 'https://TU-DOMINIO.com.ar', // cambiar cuando esté el dominio
+  dominio: 'https://ggargentina.com',
   credito: { texto: 'Web hecha por Franco David', link: 'https://www.instagram.com/francodavid_66/' },
 }
 

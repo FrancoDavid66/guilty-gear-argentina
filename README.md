@@ -51,7 +51,7 @@ Imágenes:
 
 > Imágenes de personajes: usar fan art con permiso del artista o imágenes propias. Las guías de contenido de fans de Arc System Works no permiten usar ilustraciones, logos ni contenido del juego oficiales directamente.
 
-**Colores:** `tailwind.config.js` · **Dominio:** reemplazar `TU-DOMINIO.com.ar` en `index.html`, `public/robots.txt`, `public/sitemap.xml` y `src/data/gga.js`.
+**Colores:** `tailwind.config.js` · **Dominio:** `ggargentina.com` (si cambia, reemplazarlo en `index.html`, `public/robots.txt`, `public/sitemap.xml` y `src/data/gga.js`).
 
 ## Publicar
 
